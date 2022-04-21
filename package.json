@@ -2,10 +2,9 @@
   "name": "cli",
   "version": "1.0.0",
   "description": "This is the official Chill&chat CLI,  this CLI provides direct access to the Chill&chat API.",
-  "main": "index.js",
-  "devDependencies": {},
+  "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Chillandchat/cli/issues"
   },
-  "homepage": "https://github.com/Chillandchat/cli#readme"
+  "homepage": "https://github.com/Chillandchat/cli#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
 }
