@@ -4,7 +4,7 @@
 ![](https://img.shields.io/github/repo-size/Chillandchat/cli) ![](https://img.shields.io/github/v/release/chillandchat/cli?label=Latest%20release&logo=Chill%26chat) ![](https://img.shields.io/github/issues-pr-closed/Chillandchat/cli) ![](https://img.shields.io/github/issues-pr-raw/Chillandchat/cli)
 
 
-This is the Chill&chat CLI, this CLI provides direct accsess to the Chill&chat API.
+This is the Chill&chat CLI, this CLI provides direct access to the Chill&chat API.
 
 ### License
 
