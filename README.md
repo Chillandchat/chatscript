@@ -1,6 +1,6 @@
 <p align="center"how><img src="https://github.com/Chillandchat/api/blob/master/logo.svg/" style="width:200px;"/></p>
 
-# Chill&chat API
+# Chill&chat CLI
 ![](https://img.shields.io/github/repo-size/Chillandchat/cli) ![](https://img.shields.io/github/v/release/chillandchat/cli?label=Latest%20release&logo=Chill%26chat) ![](https://img.shields.io/github/issues-pr-closed/Chillandchat/cli) ![](https://img.shields.io/github/issues-pr-raw/Chillandchat/cli)
 
 
