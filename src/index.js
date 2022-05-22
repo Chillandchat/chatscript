@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env/node
 var inquirer = require("inquirer");
 var signup = require("./signup.js");
 
