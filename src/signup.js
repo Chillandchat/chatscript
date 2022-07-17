@@ -1,5 +1,6 @@
 var uuid = require("uuid");
 var dotenv = require("dotenv");
+
 /**
  * This function will send a request to the server to create a new user instance.
  *
@@ -10,7 +11,7 @@ var dotenv = require("dotenv");
 
 dotenv.config();
 
-async function signup(username, password) {
+function signup(username, password) {
   var botId = uuid();
 
   post(process.env.API_URL + "/api/signup?key=" + process.env.API_KEY, {

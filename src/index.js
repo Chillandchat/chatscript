@@ -2,49 +2,36 @@
 var inquirer = require("inquirer");
 var signup = require("./signup.js");
 
-var username;
-var password;
-var confirmPassword;
+console.log("Welcome to the Chill&chat server interface!\n");
+console.log("Please select an option below to continue:");
+console.log("1. Parse script\n2. Signup\n3. Exit\n");
 
-console.log("Welcome to the Chill&chat command line interface.\n");
-console.log("Please enter details below to register a bot.\n");
-
-async function askInput() {
-  await inquirer
-    .prompt({
+inquirer
+  .prompt([
+    {
+      name: "option",
+      message: "Please select an option:",
       type: "input",
-      name: "username",
-      message: "Please enter username:",
-    })
-    .then(function (data) {
-      username = data.username;
-    });
+    },
+  ])
+  .then(function (answer) {
+    switch(answer.option){
+      case "1":
+        console.log("Parse script selected");
+        break;
 
-  await inquirer
-    .prompt({
-      type: "password",
-      name: "password",
-      message: "Please enter your password:",
-    })
-    .then(function (data) {
-      password = data.password;
-    });
+      case "2":
+        console.log("Signup selected");
+        break;
 
-  await inquirer
-    .prompt({
-      type: "password",
-      name: "confirmPassword",
-      message: "Please confirm your password:",
-    })
-    .then(function (data) {
-      confirmPassword = data.confirmPassword;
-    });
-}
-
-askInput();
-if (password === confirmPassword) {
-  signup(username, password).then(function (data) {
-    console.log("Successfully created bot.\n");
-    console.log("Bot ID: " + data + "\n");
+      case "3":
+        console.log("Exit selected, terminating.");
+        process.exit(0);
+        break;
+  
+      default:
+        console.log("Invalid option selected, terminating.");
+        process.exit(1);
+        break;
+    }
   });
-}
