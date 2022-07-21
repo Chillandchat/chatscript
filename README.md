@@ -65,7 +65,5 @@ All the above will be enforced to ensure Chill&chat is safe!
 *Alvin cheng - Software engineer*
 
 *Brianna cheng - UI&UX designer* 
-
-*Manav Rangarajan - Designer*
 #
 ❤️ Made With Love ❤️
