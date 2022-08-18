@@ -1,6 +1,4 @@
-//! "import "react-native-get-random-values";" MUST BE FIRST!!
-import "react-native-get-random-values";
-import Constants from "expo-constants";
+import dotenv from "dotenv";
 import { v4 as uuid } from "uuid";
 import { io } from "socket.io-client";
 
@@ -11,9 +9,11 @@ import { io } from "socket.io-client";
  * @param {string} room The room of the message.
  */
 
+dotenv.config();
+
 const deleteMessage = async (id: string, room: string): Promise<void> => {
   const responseToken: string = uuid();
-  const socket: any = io(String(Constants.manifest?.extra?.SOCKET_URL), {
+  const socket: any = io(String(process.env.SOCKET_URL), {
     transports: ["websocket"],
   });
 
@@ -22,7 +22,7 @@ const deleteMessage = async (id: string, room: string): Promise<void> => {
     id,
     room,
     responseToken,
-    String(Constants.manifest?.extra?.API_KEY)
+    String(process.env.API_KEY)
   );
 
   socket.on(`deleted:token(${responseToken})`, (): void => {

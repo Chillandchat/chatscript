@@ -2,7 +2,7 @@
   "name": "cli",
   "version": "1.0.0",
   "description": "The CLI for Chill&chat",
-  "main": "index.ts",
+  "main": "./src/index.ts",
   "repository": "https://github.com/Chillandchat/cli.git",
   "author": "Alvin Cheng <chengalvin333@gmail.com>",
   "license": "MIT",

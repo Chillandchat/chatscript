@@ -1,8 +1,11 @@
-import Constants from "expo-constants";
+import dotenv from "dotenv";
 import axios, { AxiosInstance } from "axios";
+
 import { ApiEndpoints } from "./index.d";
 
-export const apiKey: string = String(Constants.manifest?.extra?.API_KEY);
+dotenv.config();
+
+export const apiKey: string = String(process.env.API_KEY);
 
 export const endpoints: ApiEndpoints = {
   home: "/",
@@ -23,7 +26,7 @@ export const endpoints: ApiEndpoints = {
 };
 
 export const apiInstance: AxiosInstance = axios.create({
-  baseURL: String(Constants.manifest?.extra?.API_URL),
+  baseURL: String(process.env.API_URL),
 });
 
 const api: any = {
@@ -33,9 +36,9 @@ const api: any = {
 };
 
 if (
-  Constants.manifest?.extra?.API_KEY === undefined ||
-  Constants.manifest?.extra?.API_URL === undefined ||
-  Constants.manifest?.extra?.SOCKET_URL === undefined
+  process.env.API_KEY === undefined ||
+  process.env.API_URL === undefined ||
+  process.env.SOCKET_URL === undefined
 ) {
   console.error(
     "Error: API key or API url not found in the .env file, please make sure the variable is set and present. \nError code: CC_ERROR_1591"

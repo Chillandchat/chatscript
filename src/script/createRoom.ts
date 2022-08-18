@@ -1,5 +1,4 @@
-//! "import "react-native-get-random-values";" MUST BE FIRST!!
-import "react-native-get-random-values";
+import dotenv from "dotenv";
 import { AxiosResponse } from "axios";
 import { v4 as uuid } from "uuid";
 
@@ -14,22 +13,24 @@ import api from "./api";
  * @returns {Promise<void>}
  */
 
+dotenv.config();
+
 const createRoom = async (
   name: string,
   password: string,
   id: string
 ): Promise<void> => {
-    await api.instance
-      .post(`${api.endpoints.createRoom}?key=${api.apiKey}`, {
-        id: uuid(),
-        name: name,
-        passcode: password,
-        user: id,
-      })
-      .then((_data: AxiosResponse): void => {})
-      .catch((err: unknown): void => {
-        throw new Error(`API Error: ${err} \n   Error code: CC_ERROR_0318`);
-      });
+  await api.instance
+    .post(`${api.endpoints.createRoom}?key=${api.apiKey}`, {
+      id: uuid(),
+      name: name,
+      passcode: password,
+      user: id,
+    })
+    .then((_data: AxiosResponse): void => {})
+    .catch((err: unknown): void => {
+      throw new Error(`API Error: ${err} \n   Error code: CC_ERROR_0318`);
+    });
 };
 
 export default createRoom;

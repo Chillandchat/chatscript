@@ -1,8 +1,6 @@
-//! "import "react-native-get-random-values";" MUST BE FIRST!!
-import "react-native-get-random-values";
-import Constants from "expo-constants";
 import { v4 as uuid } from "uuid";
 import { io } from "socket.io-client";
+import dotenv from "dotenv";
 
 import { KeyboardMode } from "./index.d";
 
@@ -14,13 +12,15 @@ import { KeyboardMode } from "./index.d";
  * @param {KeyboardMode} mode The mode of the typing user.
  */
 
+dotenv.config();
+
 const setKeyboardSocket = async (
   room: string,
   user: string,
   mode: KeyboardMode
 ): Promise<void> => {
   const responseToken: string = uuid();
-  const socket: any = io(String(Constants.manifest?.extra?.SOCKET_URL), {
+  const socket: any = io(String(process.env.SOCKET_URL), {
     transports: ["websocket"],
   });
 
@@ -28,7 +28,7 @@ const setKeyboardSocket = async (
     "server-keyboard",
     room,
     user,
-    String(Constants.manifest?.extra?.API_KEY),
+    String(process.env.API_KEY),
     responseToken,
     mode
   );
