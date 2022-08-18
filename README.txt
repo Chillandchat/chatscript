@@ -1,0 +1,1 @@
+This is the Chill&chat CLI used for communicating with the Chill&chat server to make a bot. This project is still work in progress.
