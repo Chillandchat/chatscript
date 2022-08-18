@@ -1,3 +1,5 @@
+//! "import "react-native-get-random-values";" MUST BE FIRST!!
+import "react-native-get-random-values";
 import { AxiosResponse } from "axios";
 import { v4 as uuid } from "uuid";
 
@@ -20,6 +22,9 @@ const signup = async (username: string, password: string): Promise<void> => {
       verified: false,
       bot: false,
       blocked: false,
+      followers: 0,
+      following: [],
+      description: "",
     })
     .then((_data: AxiosResponse): void => {})
     .catch((err: unknown): void => {

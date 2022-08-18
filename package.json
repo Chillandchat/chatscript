@@ -2,11 +2,15 @@
   "name": "cli",
   "version": "1.0.0",
   "description": "The CLI for Chill&chat",
-  "main": "index.js",
+  "main": "index.ts",
   "repository": "https://github.com/Chillandchat/cli.git",
   "author": "Alvin Cheng <chengalvin333@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "ts-node .",
+    "build": "tsc"
+  },
   "dependencies": {
     "@types/node": "^18.6.3",
     "@types/socket.io-client": "^3.0.0",

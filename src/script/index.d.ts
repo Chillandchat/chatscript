@@ -1,3 +1,5 @@
+import { AxiosInstance } from "axios";
+
 /**
  * This is the ApiEndpoint type, this type makes sure that the all endpoints are valid.
  */
@@ -14,7 +16,10 @@ export type ApiEndpoint =
   | "/api/create-room"
   | "/api/join-room"
   | "/api/get-rooms"
-  | "/api/remove-room";
+  | "/api/remove-room"
+  | "/api/update-description"
+  | "/api/unfollow-user"
+  | "/api/follow-user";
 
 /**
  * This is the ApiEndpoints type, This type works with the "ApiEndpoint"
@@ -30,6 +35,9 @@ export type ApiEndpoint =
  * @param {ApiEndpoint} blockUser
  * @param {ApiEndpoint} reportUser
  * @param {ApiEndpoint} reportRoom
+ * @param {ApiEndpoint} unfollowUser
+ * @param {ApiEndpoint} followUser
+ * @param {ApiEndpoint} updateDescription
  */
 
 export interface ApiEndpoints {
@@ -45,6 +53,9 @@ export interface ApiEndpoints {
   getRoom: ApiEndpoint;
   createRoom: ApiEndpoint;
   removeRoom: ApiEndpoint;
+  followUser: ApiEndpoint;
+  unfollowUser: ApiEndpoint;
+  updateDescription: ApiEndpoint;
 }
 
 /**
@@ -55,6 +66,9 @@ export interface ApiEndpoints {
  * @param {string} content The content of the message.
  * @param {boolean} verified Whether the sender of the message is verified.
  * @param {string} iconColor The icon color.
+ * @param {string} description The description of the user profile.
+ * @param {number} followers The number of followers of the user.
+ * @param {Array<string>} following The array of following users of the user.
  */
 
 export interface AuthType {
@@ -65,7 +79,11 @@ export interface AuthType {
   bot: boolean;
   blocked: boolean;
   iconColor: string;
+  description: string;
+  followers: number;
+  following: Array<string>;
 }
+
 /**
  * This is the room object type.
  *

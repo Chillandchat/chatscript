@@ -1,8 +1,10 @@
-import dotenv from "dotenv";
+//! "import "react-native-get-random-values";" MUST BE FIRST!!
+import "react-native-get-random-values";
+import Constants from "expo-constants";
 import { v4 as uuid } from "uuid";
 import { io } from "socket.io-client";
 
-import { MessageType } from ".";
+import { MessageType } from "./index.d";
 
 /**
  * This is the send message function this function will send a message to the socket server.
@@ -10,18 +12,16 @@ import { MessageType } from ".";
  * @param {MessageType} message The message to be sent
  */
 
-dotenv.config();
-
 const sendMessage = async (message: MessageType): Promise<void> => {
   const responseToken: string = uuid();
-  const socket: any = io(String(process.env.SOCKET_URL), {
+  const socket: any = io(String(Constants.manifest?.extra?.SOCKET_URL), {
     transports: ["websocket"],
   });
 
   socket.emit(
     "server-message",
     message,
-    String(process.env.API_KEY),
+    String(Constants.manifest?.extra?.API_KEY),
     responseToken
   );
 
