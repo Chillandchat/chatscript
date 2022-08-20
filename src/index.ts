@@ -21,186 +21,207 @@ class ChillAndChatBotInstance {
     this.authenticated = false;
   }
 
-  public async login(username: string, passcode: string) {
+  public async login(username: string, passcode: string): Promise<void> {
     if (this.authenticated) throw new Error("Error: Already authenticated.");
 
-    login(username, passcode)
+    await login(username, passcode)
       .then((): void => {
-        getUser(username)
-          .then((data: AuthType | {}): void => {
-            // @ts-ignore
-            if (Object.keys(data).length !== 0) this.userInfo = data;
-            this.authenticated = true;
-          })
-          .catch((err: unknown): void => {
-            throw new Error(`${err}`);
-          });
+        this.authenticated = true;
+      })
+      .catch((err: unknown): void => {
+        throw new Error(`${err}`);
+      });
+
+    if (!this.authenticated) return;
+
+    await getUser(username)
+      .then((data: AuthType | {}): void => {
+        // @ts-ignore
+        if (Object.keys(data).length !== 0 && data?.bot) this.userInfo = data;
+        else throw new Error("Error: Invalid user.");
       })
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public signOut() {
+  public signOut(): void {
     this.authenticated = false;
   }
 
-  public async createRoom(name: string, password: string) {
+  public async createRoom(name: string, password: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
-    createRoom(name, password, this.userInfo?.username as string)
+    await createRoom(name, password, this.userInfo?.username as string)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public async deleteMessage(id: string, room: string) {
+  public async deleteMessage(id: string, room: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
-    deleteMessage(id, room)
+    await deleteMessage(id, room)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public async followUser(targetUser: string) {
+  public async followUser(targetUser: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
-    followUser(targetUser, this.userInfo?.username as string)
+    await followUser(targetUser, this.userInfo?.username as string)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public async getMessages(room: string) {
+  public async getMessages(room: string): Promise<Array<MessageType>> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
-    getMessages(room)
-      .then((messages: Array<MessageType>): typeof messages => messages)
+    let messageList: Array<MessageType>;
+
+    await getMessages(room)
+      .then((messages: Array<MessageType>): void => {
+        messageList = messages;
+      })
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
+
+    return messageList;
   }
 
-  public async getRooms() {
+  public async getRooms(): Promise<Array<RoomType>> {
+    if (!this.authenticated)
+      throw new Error(
+        "Error: Not authenticated, please authenticate using the login method first."
+      );
+
+    let roomList: Array<RoomType>;
+
+    // @ts-ignore
+    await getRooms(this.userInfo?.username)
+      .then((rooms: Array<RoomType>): void => {
+        roomList = rooms;
+      })
+      .catch((err: unknown): void => {
+        throw new Error(`${err}`);
+      });
+
+    return roomList;
+  }
+
+  public async getUser(user: string): Promise<AuthType | {}> {
+    if (!this.authenticated)
+      throw new Error(
+        "Error: Not authenticated, please authenticate using the login method first."
+      );
+
+    let userInfoReturnValue: AuthType | {};
+    await getUser(user)
+      .then((userInfo: AuthType | {}): void => {
+        userInfoReturnValue = userInfo;
+      })
+      .catch((err: unknown): void => {
+        throw new Error(`${err}`);
+      });
+
+    return userInfoReturnValue;
+  }
+
+  public async joinRoom(roomId: string, roomPassword: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
     // @ts-ignore
-    getRooms(this.userInfo?.username)
-      .then((rooms: Array<RoomType>): typeof rooms => rooms)
-      .catch((err: unknown): void => {
-        throw new Error(`${err}`);
-      });
-  }
-
-  public async getUser(user: string) {
-    if (!this.authenticated)
-      throw new Error(
-        "Error: Not authenticated, please authenticate using the login method first."
-      );
-
-    getUser(user)
-      .then((userInfo: AuthType | {}): typeof userInfo => userInfo)
-      .catch((err: unknown): void => {
-        throw new Error(`${err}`);
-      });
-  }
-
-  public async joinRoom(roomId: string, roomPassword: string) {
-    if (!this.authenticated)
-      throw new Error(
-        "Error: Not authenticated, please authenticate using the login method first."
-      );
-
-    // @ts-ignore
-    joinRoom(this.userInfo?.username, roomId, roomPassword)
+    await joinRoom(this.userInfo?.username, roomId, roomPassword)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public async removeRoom(room: string) {
+  public async removeRoom(room: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
     // @ts-ignore
-    removeRoom(room, this.userInfo?.username)
+    await removeRoom(room, this.userInfo?.username)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public async reportRoom(room: string) {
+  public async reportRoom(room: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
     // @ts-ignore
-    reportRoom(room)
+    await reportRoom(room)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public async sendMessage(message: MessageType) {
+  public async sendMessage(message: MessageType): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
-    sendMessage(message)
+    await sendMessage(message)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
   }
 
-  public async unfollowUser(user: string) {
-    if (!this.authenticated)
-      throw new Error(
-        "Error: Not authenticated, please authenticate using the login method first."
-      );
-
-    // @ts-ignore
-    unfollowUser(user, this.userInfo?.username)
-      .then((): void => {})
-      .catch((err: unknown): void => {
-        throw new Error(`${err}`);
-      });
-  }
-
-  public async updateDescription(description: string) {
+  public async unfollowUser(user: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
     // @ts-ignore
-    updateDescription(this.userInfo?.username, description)
+    await unfollowUser(user, this.userInfo?.username)
+      .then((): void => {})
+      .catch((err: unknown): void => {
+        throw new Error(`${err}`);
+      });
+  }
+
+  public async updateDescription(description: string): Promise<void> {
+    if (!this.authenticated)
+      throw new Error(
+        "Error: Not authenticated, please authenticate using the login method first."
+      );
+
+    // @ts-ignore
+    await updateDescription(this.userInfo?.username, description)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
