@@ -1,3 +1,7 @@
+import { v4 as uuid } from "uuid";
+import dotenv from "dotenv";
+import io, { Socket } from "socket.io-client";
+
 import { AuthType, MessageType, RoomType } from "./script";
 import createRoom from "./script/createRoom";
 import deleteMessage from "./script/deleteMessage";
@@ -13,9 +17,13 @@ import sendMessage from "./script/sendMessage";
 import unfollowUser from "./script/unfollowUser";
 import updateDescription from "./script/updateDescription";
 
+dotenv.config();
 class ChillAndChatBotInstance {
   private authenticated: boolean;
   private userInfo: AuthType | undefined;
+  private socket: Socket = io(process.env.SOCKET_URL);
+
+  public rooms: Array<string> = [];
 
   constructor() {
     this.authenticated = false;
@@ -34,7 +42,7 @@ class ChillAndChatBotInstance {
 
     if (!this.authenticated) return;
 
-    await getUser(username)
+    await this.getUser(username)
       .then((data: AuthType | {}): void => {
         // @ts-ignore
         if (Object.keys(data).length !== 0 && data?.bot) this.userInfo = data;
@@ -43,10 +51,23 @@ class ChillAndChatBotInstance {
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
+
+    await this.getRooms()
+      .then((rooms: Array<RoomType>): void => {
+        rooms.forEach((room: RoomType): void => {
+          this.rooms.push(room.id);
+        });
+      })
+      .catch((err: unknown): void => {
+        throw new Error(`${err}`);
+      });
   }
 
   public signOut(): void {
     this.authenticated = false;
+    this.socket.disconnect();
+
+    process.exit(0);
   }
 
   public async createRoom(name: string, password: string): Promise<void> {
@@ -187,11 +208,18 @@ class ChillAndChatBotInstance {
       });
   }
 
-  public async sendMessage(message: MessageType): Promise<void> {
+  public async sendMessage(content: string, room: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
+
+    const message: MessageType = {
+      id: uuid(),
+      user: this.userInfo?.username,
+      content: content,
+      room: room,
+    };
 
     await sendMessage(message)
       .then((): void => {})
@@ -226,6 +254,15 @@ class ChillAndChatBotInstance {
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
+  }
+
+  public onMessage(room: string, event: (message: MessageType) => void): void {
+    this.socket.on(
+      `client-message:room(${room})`,
+      (messageResponse: MessageType): void => {
+        event(messageResponse);
+      }
+    );
   }
 }
 
