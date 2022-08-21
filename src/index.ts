@@ -18,6 +18,7 @@ import unfollowUser from "./script/unfollowUser";
 import updateDescription from "./script/updateDescription";
 
 dotenv.config();
+
 class ChillAndChatBotInstance {
   private authenticated: boolean;
   private userInfo: AuthType | undefined;
