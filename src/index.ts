@@ -20,15 +20,11 @@ import updateDescription from "./script/updateDescription";
 dotenv.config();
 
 class ChillAndChatBotInstance {
-  private authenticated: boolean;
+  private authenticated: boolean = false;
   private userInfo: AuthType | undefined;
   private socket: Socket = io(process.env.SOCKET_URL);
 
   public rooms: Array<string> = [];
-
-  constructor() {
-    this.authenticated = false;
-  }
 
   public async login(username: string, passcode: string): Promise<void> {
     if (this.authenticated) throw new Error("Error: Already authenticated.");
