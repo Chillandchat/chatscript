@@ -18,3 +18,4 @@ yarn-error.log
 log.txt
 wiki
 test.ts
+__tests__
