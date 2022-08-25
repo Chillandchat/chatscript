@@ -27,6 +27,16 @@ class ChillAndChatBotInstance {
   public rooms: Array<string> = [];
 
   /**
+   * This is the rooms exists function this function will return a boolean value, if the room exists.
+   *
+   * @param {string} room The room to search
+   */
+
+  public roomExists(room: string): boolean {
+    return this.rooms.includes(room);
+  }
+
+  /**
    * This is the login function, this function will authenticate the bot,
    *
    * @param {string} username The username of the bot.
@@ -113,6 +123,8 @@ class ChillAndChatBotInstance {
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
+    if (!this.roomExists(room)) throw new Error("Error: Invalid room.");
+
     await deleteMessage(id, room)
       .then((): void => {})
       .catch((err: unknown): void => {
@@ -150,6 +162,8 @@ class ChillAndChatBotInstance {
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
+
+    if (!this.roomExists(room)) throw new Error("Error: Invalid room.");
 
     let messageList: Array<MessageType>;
 
@@ -245,6 +259,8 @@ class ChillAndChatBotInstance {
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
+    if (!this.roomExists(room)) throw new Error("Error: Invalid room.");
+
     // @ts-ignore
     await removeRoom(room, this.userInfo?.username)
       .then((): void => {})
@@ -264,6 +280,8 @@ class ChillAndChatBotInstance {
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
+
+    if (!this.roomExists(room)) throw new Error("Error: Invalid room.");
 
     // @ts-ignore
     await reportRoom(room)
@@ -285,6 +303,8 @@ class ChillAndChatBotInstance {
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
+
+    if (!this.roomExists(room)) throw new Error("Error: Invalid room.");
 
     const message: MessageType = {
       id: uuid(),
@@ -347,7 +367,12 @@ class ChillAndChatBotInstance {
    * @param {(message:MessageType) => void} event The function to run when a message is sent.
    */
 
-  public onMessage(room: string, event: (message: MessageType) => void): void {
+  public async onMessage(
+    room: string,
+    event: (message: MessageType) => void
+  ): Promise<void> {
+    if (!this.roomExists(room)) throw new Error("Error: Invalid room.");
+
     this.socket.on(
       `client-message:room(${room})`,
       (messageResponse: MessageType): void => {
