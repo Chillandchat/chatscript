@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "ts-node .",
-    "build": "tsc"
+    "start": "echo 'Starting...' && ts-node .",
+    "build": "echo 'Compiling Typescript...' && tsc"
   },
   "dependencies": {
     "axios": "^0.27.2",

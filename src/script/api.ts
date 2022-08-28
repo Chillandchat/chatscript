@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import axios, { AxiosInstance } from "axios";
 
-import { ApiEndpoints } from "./index.d";
+import { ApiEndpoints } from ".";
 
 dotenv.config();
 
