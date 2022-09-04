@@ -32,8 +32,12 @@ class ChillAndChatBotInstance {
    * @param {string} room The room to search
    */
 
-  public roomExists(room: string): boolean {
-    return this.rooms.includes(room);
+  public async roomExists(room: string): Promise<boolean> {
+    if (this.authenticated) return this.rooms.includes(room);
+
+    throw new Error(
+      "Error: Not authenticated, please authenticate using the login method first."
+    );
   }
 
   /**
