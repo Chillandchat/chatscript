@@ -1,6 +1,6 @@
 {
   "name": "@chillandchat/cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The CLI for communicating with the Chill&chat server.",
   "main": "./src/index.ts",
   "repository": "https://github.com/Chillandchat/cli.git",
