@@ -16,6 +16,5 @@ web-build/
 .DS_Store
 yarn-error.log
 log.txt
-wiki
 test.ts
 __tests__
