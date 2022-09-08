@@ -234,7 +234,7 @@ class ChillAndChatBotInstance {
    * This is the join room function, this function will add the bot to a room.
    *
    * @param {string} roomId The id of the room.
-   * @param {string} roomPassword The password of the
+   * @param {string} roomPassword The password of the room.
    */
 
   public async joinRoom(roomId: string, roomPassword: string): Promise<void> {
