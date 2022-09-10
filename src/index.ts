@@ -17,7 +17,7 @@
  * Tech stack:
  *    - TypeScript: This is the main language used in the application.
  *    - Express: This is the framework used to create the API.
- *    - AxiosL This is the main network library to communicate to the API.
+ *    - Axios: This is the main network library to communicate to the API.
  *    - Socket.io: This is the framework used to communicate and transfer realtime data.
  *
  * Happy hacking!
