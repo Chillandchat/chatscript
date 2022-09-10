@@ -1,3 +1,28 @@
+/**
+ * Welcome to the...
+ *   ____ _     _ _ _  ___        _           _
+ *  / ___| |__ (_) | |( _ )   ___| |__   __ _| |_
+ * | |   | '_ \| | | |/ _ \/\/ __| '_ \ / _` | __|
+ * | |___| | | | | | | (_>  < (__| | | | (_| | |_
+ *  \____|_| |_|_|_|_|\___/\/\___|_| |_|\__,_|\__|  CLI
+ *
+ * codebase!
+ *
+ * This is the codebase guide for developers viewing this codebase.
+ *
+ * We have organized the codebase into the following folders:
+ * Source:
+ *    - Scripts: This is the folder for scripts in communicating with the API server.
+ *
+ * Tech stack:
+ *    - TypeScript: This is the main language used in the application.
+ *    - Express: This is the framework used to create the API.
+ *    - AxiosL This is the main network library to communicate to the API.
+ *    - Socket.io: This is the framework used to communicate and transfer realtime data.
+ *
+ * Happy hacking!
+ */
+
 import { v4 as uuid } from "uuid";
 import dotenv from "dotenv";
 import io, { Socket } from "socket.io-client";
