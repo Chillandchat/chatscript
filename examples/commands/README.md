@@ -1,6 +1,6 @@
 ## Commands
 
-Welcome to the commands example! This example we will learn how to make a command system,
+Welcome to the commands example! This example we will learn how to make a command system! This example you will learn how to run some code when a user types a certain command. Kinda like a command line!
 
 ### Logic
 
