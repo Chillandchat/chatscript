@@ -302,9 +302,10 @@ class ChillAndChatBotInstance {
    * This is the report room function, this function will report a room by logging this report to the Chill&chat team.
    *
    * @param {string} room The room to report.
+   * @param {string} message The message that is left when the room is reported.
    */
 
-  public async reportRoom(room: string): Promise<void> {
+  public async reportRoom(room: string, message: string): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
@@ -313,7 +314,7 @@ class ChillAndChatBotInstance {
     if (!this.roomExists(room)) throw new Error("Error: Invalid room.");
 
     // @ts-ignore
-    await reportRoom(room)
+    await reportRoom(room, this.userInfo.username, message)
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
