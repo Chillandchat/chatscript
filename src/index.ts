@@ -59,7 +59,7 @@ class ChillAndChatBotInstance {
    * @param {string} key The key found from the bot utility
    */
 
-  public async getKey(key: string) {
+  private async getKey(key: string) {
     if (api.apiKey !== null) throw new Error("Key already fetched");
 
     getKey(key)
@@ -88,15 +88,26 @@ class ChillAndChatBotInstance {
    *
    * @param {string} username The username of the bot.
    * @param {string} passcode The passcode of the bot.
+   * @param {string} botKey The bot API key from the bot utility.
    * @note Remember it must be unencrypted password!!
    */
 
-  public async login(username: string, passcode: string): Promise<void> {
+  public async login(
+    username: string,
+    passcode: string,
+    botKey: string
+  ): Promise<void> {
     if (this.authenticated) throw new Error("Error: Already authenticated.");
 
-    await login(username, passcode)
-      .then((): void => {
-        this.authenticated = true;
+    await getKey(botKey)
+      .then(async (): Promise<void> => {
+        await login(username, passcode)
+          .then((): void => {
+            this.authenticated = true;
+          })
+          .catch((err: unknown): void => {
+            throw new Error(`${err}`);
+          });
       })
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
