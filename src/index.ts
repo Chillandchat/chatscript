@@ -41,6 +41,8 @@ import reportRoom from "./script/reportRoom";
 import sendMessage from "./script/sendMessage";
 import unfollowUser from "./script/unfollowUser";
 import updateDescription from "./script/updateDescription";
+import api from "./script/api";
+import getKey from "./script/getKey";
 
 dotenv.config();
 
@@ -50,6 +52,22 @@ class ChillAndChatBotInstance {
   private socket: Socket = io(process.env.SOCKET_URL);
 
   public rooms: Array<string> = [];
+
+  /**
+   * This is the get key method, this method will as the name suggest get the api key using a bot from the bot utility.
+   *
+   * @param {string} key The key found from the bot utility
+   */
+
+  public async getKey(key: string) {
+    if (api.apiKey !== null) throw new Error("Key already fetched");
+
+    getKey(key)
+      .then((): void => {})
+      .catch((err: string): void => {
+        throw new Error(err);
+      });
+  }
 
   /**
    * This is the rooms exists function this function will return a boolean value, if the room exists.
