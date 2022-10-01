@@ -5,8 +5,6 @@ import { ApiEndpoints } from ".";
 
 dotenv.config();
 
-export const apiKey: string = String(process.env.API_KEY);
-
 export const endpoints: ApiEndpoints = {
   home: "/",
   login: "/api/login",
@@ -23,25 +21,22 @@ export const endpoints: ApiEndpoints = {
   followUser: "/api/follow-user",
   unfollowUser: "/api/unfollow-user",
   updateDescription: "/api/update-description",
+  updateIconColor: "/api/update-icon-color",
 };
 
 export const apiInstance: AxiosInstance = axios.create({
   baseURL: String(process.env.API_URL),
 });
 
-const api: any = {
-  apiKey: apiKey,
+let api: any = {
+  apiKey: null,
   endpoints: endpoints,
   instance: apiInstance,
 };
 
-if (
-  process.env.API_KEY === undefined ||
-  process.env.API_URL === undefined ||
-  process.env.SOCKET_URL === undefined
-) {
+if (process.env.API_URL === undefined || process.env.SOCKET_URL === undefined) {
   console.error(
-    "Error: API key or API url not found in the .env file, please make sure the variable is set and present. \nError code: CC_ERROR_1591"
+    "Error: API url not found in the .env file, please make sure the variable is set and present. \nError code: CC_ERROR_1591"
   );
 }
 
