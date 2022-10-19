@@ -152,16 +152,26 @@ class ChillAndChatBotInstance {
    *
    * @param {string} name The name of the room.
    * @param {string} password The password of the room.
+   * @param {boolean} idPublic If the room is public or not.
    * @note Remember it must be unencrypted password!!
    */
 
-  public async createRoom(name: string, password: string): Promise<void> {
+  public async createRoom(
+    name: string,
+    isPublic: boolean,
+    password: string
+  ): Promise<void> {
     if (!this.authenticated)
       throw new Error(
         "Error: Not authenticated, please authenticate using the login method first."
       );
 
-    await createRoom(name, password, this.userInfo?.username as string)
+    await createRoom(
+      name,
+      password,
+      this.userInfo?.username as string,
+      isPublic
+    )
       .then((): void => {})
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
