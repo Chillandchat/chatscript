@@ -152,7 +152,7 @@ class ChillAndChatBotInstance {
    *
    * @param {string} name The name of the room.
    * @param {string} password The password of the room.
-   * @param {boolean} idPublic If the room is public or not.
+   * @param {boolean} isPublic If the room is public or not.
    * @note Remember it must be unencrypted password!!
    */
 
