@@ -43,6 +43,7 @@ import unfollowUser from "./script/unfollowUser";
 import updateDescription from "./script/updateDescription";
 import api from "./script/api";
 import getKey from "./script/getKey";
+import getPublicRooms from "./script/getPublicRooms";
 
 dotenv.config();
 
@@ -176,6 +177,26 @@ class ChillAndChatBotInstance {
       .catch((err: unknown): void => {
         throw new Error(`${err}`);
       });
+  }
+
+  /**
+   * This is the get public rooms method, this method will return all the public rooms from the script.
+   *
+   * @note This method does not take any arguments.
+   */
+
+  public async getPublicRooms(): Promise<Array<RoomType>> {
+    let returnRooms: Array<RoomType> = [];
+
+    await getPublicRooms()
+      .then((rooms: Array<RoomType>): void => {
+        returnRooms = rooms;
+      })
+      .catch((err: unknown): void => {
+        throw new Error(`${err}`);
+      });
+
+    return returnRooms;
   }
 
   /**
