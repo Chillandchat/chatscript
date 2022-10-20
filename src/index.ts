@@ -186,6 +186,11 @@ class ChillAndChatBotInstance {
    */
 
   public async getPublicRooms(): Promise<Array<RoomType>> {
+    if (!this.authenticated)
+      throw new Error(
+        "Error: Not authenticated, please authenticate using the login method first."
+      );
+
     let returnRooms: Array<RoomType> = [];
 
     await getPublicRooms()
