@@ -3,6 +3,10 @@ import fs from "fs";
 import { TreeNode } from "./index.d";
 import parse from "./parse";
 
+/**
+ * This is the compile function, this function will compile the source code given in the 3rd argument.
+ * @note This function has no arguments.
+ */
 const compile = (): void => {
   const ast: Array<TreeNode> = parse(process.argv[2]);
 
