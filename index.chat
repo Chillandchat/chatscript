@@ -1,0 +1,2 @@
+print "Hello world!";
+$VARI1 = (compare 1 2);
