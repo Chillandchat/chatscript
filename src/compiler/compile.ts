@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import { TreeNode } from "./index.d";
+import { TreeNode } from "../utils";
 import parse from "./parse";
 
 /**
@@ -20,3 +20,5 @@ const compile = (): void => {
 };
 
 export default compile;
+
+compile();

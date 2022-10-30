@@ -1,5 +1,5 @@
-import readFile from "./readFile";
-import { TreeNode } from "./index.d";
+import readFile from "../utils/readFile";
+import { TreeNode } from "../utils";
 
 /**
  * This is the parse function, this function will parse the chat script file and output the AST of the file.
@@ -30,33 +30,57 @@ const parse = (file: string): Array<TreeNode> => {
     let currentNode: TreeNode = { command: "", arguments: [] };
     let currentCommand: string = "";
     let currentArgument: string = "";
-    let openedQuote: boolean = false;
+    let opened: boolean = false;
 
+    // Pre-processors
     if (value.replaceAll(" ", "")[0] === "#") {
       lines.splice(index, 1);
       return;
     }
 
+    if (value.replaceAll(" ", "")[0] === "$") {
+      let replacement = "set";
+      let currentProcessArgument = "";
+
+      for (let i = 0; i < value.length; i++) {
+        if (value[i] !== " " && value[i] !== "=")
+          currentProcessArgument = currentProcessArgument.concat(value[i]);
+        if (
+          (currentProcessArgument !== "" && value[i] === " ") ||
+          i === value.length - 1
+        ) {
+          replacement = replacement.concat(` ${currentProcessArgument}`);
+          currentProcessArgument = "";
+        }
+      }
+      value = replacement;
+    }
+
     for (let i = 0; i < value.length; i++) {
       if (currentNode.command !== "") {
-        if (value[i] !== " ") {
+        if (value[i] === ")") {
+          currentArgument = `${value.slice(0, i)};`;
+        }
+        if (value[i] !== " " || (value[i] === " " && opened)) {
           currentArgument = currentArgument.concat(value[i]);
         }
-        if (i === value.length - 1 || (value[i] === " " && !openedQuote)) {
+        if (i === value.length - 1 || (value[i] === " " && !opened)) {
           currentNode.arguments.push(
-            openedQuote ? currentArgument.replaceAll(`"`, "") : currentArgument
+            opened ? currentArgument.replaceAll(`"`, "") : currentArgument
           );
           currentArgument = "";
         }
-        if (value[i] === `"`) {
-          if (openedQuote && i !== value.length - 1) {
-            currentNode.arguments.push(currentArgument.replaceAll(`"`, ""));
+        if (value[i] === `"` || value[i] === `(` || value[i] === `)`) {
+          if (opened && i !== value.length - 1) {
+            console.log(currentArgument);
+            currentArgument = currentArgument.replaceAll(`"`, "");
+            currentNode.arguments.push(currentArgument);
             currentArgument = "";
-            openedQuote = false;
+            opened = false;
             i++;
             continue;
           } else {
-            openedQuote = true;
+            opened = true;
           }
         }
       }
@@ -78,7 +102,7 @@ const parse = (file: string): Array<TreeNode> => {
     currentArgument = "";
     currentCommand = "";
   });
-
+  console.log(tree);
   return tree;
 };
 
