@@ -46,3 +46,9 @@ export interface RuntimeInfo {
   file: string;
   stack: CallStack;
 }
+
+export interface FunctionInstance {
+  body: Array<TreeNode>;
+  parameters: Array<string>;
+  name: string;
+}
