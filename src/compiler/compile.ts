@@ -1,6 +1,7 @@
 import fs from "fs";
 
 import { TreeNode } from "../utils";
+import readFile from "../utils/readFile";
 import parse from "./parse";
 
 /**
@@ -9,7 +10,7 @@ import parse from "./parse";
  */
 
 const compile = (): void => {
-  const ast: Array<TreeNode> = parse(process.argv[2]);
+  const ast: Array<TreeNode> = parse(String(readFile(process.argv[2])));
 
   fs.writeFileSync(
     "./out.chat",
@@ -20,5 +21,3 @@ const compile = (): void => {
 };
 
 export default compile;
-
-compile();

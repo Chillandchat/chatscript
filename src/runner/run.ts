@@ -1,4 +1,5 @@
 import { Command, TreeNode } from "../utils";
+import CompilerError from "../utils/error";
 import CallStack from "./commands/callStack";
 import Commands from "./commands/commands";
 
@@ -7,20 +8,33 @@ const run = (ast: string): void => {
     Buffer.from(ast, "base64").toString("ascii")
   );
 
-  const callStack = new CallStack();
+  const callStack: CallStack = new CallStack();
+  let ran: boolean = false;
 
-  tree.forEach((value: TreeNode, line: number): void => {
+  tree.forEach((value: TreeNode): void => {
     Commands.commands.forEach((command: Command, index: number): void => {
-      if (command.name === value.command)
+      if (command.name === value.command) {
+        ran = true;
         command.method(value.arguments, {
-          line: index,
+          line: index + 1,
           file: process.argv[2],
           stack: callStack,
         });
+      }
+      if (
+        !ran &&
+        command.name !== value.command &&
+        index === Commands.commands.length - 1
+      ) {
+        new CompilerError(
+          `${value.command} is not a valid command, did you mis-spell something??`,
+          process.argv[2],
+          String(index + 1),
+          "error"
+        );
+      }
     });
   });
 };
 
-run(
-  "W3siY29tbWFuZCI6InNldCIsImFyZ3VtZW50cyI6WyIkVkFSIiwiSGVsbG8gd29ybGQhIl19LHsiY29tbWFuZCI6ImRlbGV0ZSIsImFyZ3VtZW50cyI6WyIkVkFSIl19LHsiY29tbWFuZCI6InByaW50IiwiYXJndW1lbnRzIjpbIiRWQVIiXX1d"
-);
+export default run;
