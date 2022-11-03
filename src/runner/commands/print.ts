@@ -9,10 +9,14 @@ import { RuntimeInfo } from "../../utils/index.d";
  */
 
 const print = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
+  let output: string = "";
+
   for (let i = 0; i < parameters.length; i++) {
     if (parameters[i][0] === "$") {
       if (runtimeInfo.stack.variableExists(parameters[i])) {
-        console.log(runtimeInfo.stack.getVariable(parameters[i]).value);
+        output = output.concat(
+          runtimeInfo.stack.getVariable(parameters[i]).value
+        );
       } else {
         new CompilerError(
           `${parameters[i]} is undefined, did you forget to define it??`,
@@ -22,9 +26,10 @@ const print = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
         );
       }
     } else {
-      console.log(parameters[i]);
+      output = output.concat(parameters[i]);
     }
   }
+  console.log(output);
 };
 
 export default print;
