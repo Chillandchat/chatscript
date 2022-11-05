@@ -1,6 +1,13 @@
 import CompilerError from "../../../utils/error";
 import { RuntimeInfo } from "./../../../utils/index.d";
 
+/**
+ * This the calculate command, this commands will return the result of the expression in argument 1.
+ *
+ * @param {Array<string>} parameters The data from the chat-script command.
+ * @param {RuntimeInfo} runtimeInfo The runtime information.
+ */
+
 const calculate = (
   parameters: Array<string>,
   runtimeInfo: RuntimeInfo
