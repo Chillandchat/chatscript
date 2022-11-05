@@ -1,5 +1,13 @@
 import parse from "../../compiler/parse";
 import { RuntimeInfo } from "./../../utils/index.d";
+
+/**
+ * This is the function command, this command will declare a function in the call stack.
+ *
+ * @param {Array<string>} parameters The data from the chat-script command.
+ * @param {RuntimeInfo} runtimeInfo The runtime information.
+ */
+
 const _function = (
   parameters: Array<string>,
   runtimeInfo: RuntimeInfo

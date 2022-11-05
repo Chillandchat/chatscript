@@ -2,6 +2,13 @@ import CompilerError from "../../utils/error";
 import run from "../run";
 import { FunctionInstance, RuntimeInfo } from "./../../utils/index.d";
 
+/**
+ * This is the call command, this command will call a function stored in the call stack.
+ *
+ * @param {Array<string>} parameters The data from the chat-script command.
+ * @param {RuntimeInfo} runtimeInfo The runtime information.
+ */
+
 const call = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   if (!parameters[0].includes("FUNC")) {
     new CompilerError(
