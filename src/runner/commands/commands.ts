@@ -2,6 +2,7 @@ import { Command } from "../../utils";
 import call from "./call";
 import compare from "./compare";
 import deleteVariable from "./delete";
+import exit from "./exit";
 import _function from "./function";
 import _if from "./if";
 import calculate from "./math/calculate";
@@ -27,6 +28,7 @@ namespace Commands {
     { name: "compare", method: compare },
     { name: "function", method: _function },
     { name: "if", method: _if },
+    { name: "exit", method: exit },
 
     { name: "sin", method: sin },
     { name: "call", method: call },
