@@ -1,6 +1,5 @@
 import parse from "../../compiler/parse";
 import CompilerError from "../../utils/error";
-import run from "../run";
 import { Command, RuntimeInfo, TreeNode } from "./../../utils/index.d";
 import Commands from "./commands";
 
