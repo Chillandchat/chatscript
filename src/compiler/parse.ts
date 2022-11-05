@@ -16,13 +16,22 @@ const parse = (data: string): Array<TreeNode> => {
 
   let current: string = "";
   for (let i = 0; i < data.length; i++) {
-    if (data[i] === `"` && !openedQuote && !openedBracket) openedQuote = true;
+    let opened: boolean = false;
+
+    if (data[i] === '"' && !openedBracket && openedQuote) {
+      opened = true;
+      openedQuote = false;
+    }
+    if (data[i] === '"' && !openedBracket && !openedQuote && !opened) {
+      openedQuote = true;
+      opened = true;
+    }
     if (data[i] === "(" && !openedQuote) openedBracket = true;
     if (data[i] === ")" && !openedQuote) openedBracket = false;
-    if (data[i] === `"` && openedQuote && !openedBracket) openedQuote = true;
 
     if (data[i] !== ";") current = current.concat(data[i]);
-    if (data[i] === ";" && openedBracket) current = current.concat(data[i]);
+    if (data[i] === ";" && (openedBracket || openedQuote))
+      current = current.concat(data[i]);
     if (data[i] === ";" && !openedBracket && !openedQuote) {
       lines.push(current);
       current = "";
@@ -96,7 +105,7 @@ const parse = (data: string): Array<TreeNode> => {
             continue;
           }
 
-          if (openedQuote && i !== value.length - 1 && !openedBracket) {
+          if ((openedQuote || i === value.length - 1) && !openedBracket) {
             currentArgument = currentArgument.replaceAll(`"`, "");
             currentNode.arguments.push(currentArgument);
             currentArgument = "";
@@ -127,7 +136,6 @@ const parse = (data: string): Array<TreeNode> => {
     currentArgument = "";
     currentCommand = "";
   });
-  console.log(tree);
   return tree;
 };
 
