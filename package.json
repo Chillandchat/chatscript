@@ -14,6 +14,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
+    "inquirer": "^9.1.4",
     "socket.io-client": "^4.5.1",
     "uuid": "^8.3.2"
   },

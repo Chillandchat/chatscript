@@ -13,11 +13,13 @@ import sin from "./math/sin";
 import sqrt from "./math/sqrt";
 import tan from "./math/tan";
 import print from "./print";
+import prompt from "./prompt";
 import set from "./set";
 
 namespace Commands {
   export const commands: Array<Command> = [
     { name: "print", method: print },
+    { name: "prompt", method: prompt },
 
     { name: "set", method: set },
     { name: "delete", method: deleteVariable },
