@@ -8,7 +8,7 @@ import { RuntimeInfo } from "./../../../utils/index.d";
  * @param {RuntimeInfo} runtimeInfo The runtime information.
  */
 
-const sin = (parameters: Array<string>, runtimeInfo: RuntimeInfo) => {
+const sin = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   if (runtimeInfo.stack.variableExists(parameters[1])) {
     runtimeInfo.stack
       .getVariable(parameters[1])
