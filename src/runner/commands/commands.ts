@@ -4,6 +4,7 @@ import compare from "./compare";
 import deleteVariable from "./delete";
 import _function from "./function";
 import _if from "./if";
+import calculate from "./math/calculate";
 import sin from "./math/sin";
 import print from "./print";
 import set from "./set";
@@ -18,6 +19,7 @@ namespace Commands {
     { name: "sin", method: sin },
     { name: "call", method: call },
     { name: "if", method: _if },
+    { name: "calculate", method: calculate },
   ];
 }
 
