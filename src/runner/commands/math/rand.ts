@@ -12,7 +12,7 @@ const rand = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   if (runtimeInfo.stack.variableExists(parameters[1])) {
     runtimeInfo.stack
       .getVariable(parameters[1])
-      .modify(String(Math.floor(Math.random()) * Number(parameters[0])));
+      .modify(String(Math.floor(Math.random() * Number(parameters[0]))));
   } else {
     new CompilerError(
       `${parameters[1]} is undefined, did you forget to define it??`,
