@@ -1,4 +1,5 @@
-import { Command } from "../../utils";
+import { RuntimeInfo } from "./../../utils/index.d";
+import { Command } from "../../utils/index.d";
 import call from "./call";
 import compare from "./compare";
 import deleteVariable from "./delete";
@@ -24,6 +25,7 @@ namespace Commands {
 
     { name: "set", method: set },
     { name: "delete", method: deleteVariable },
+    { name: "call", method: call },
 
     { name: "compare", method: compare },
     { name: "function", method: _function },
@@ -31,7 +33,6 @@ namespace Commands {
     { name: "exit", method: exit },
 
     { name: "sin", method: sin },
-    { name: "call", method: call },
     { name: "calculate", method: calculate },
     { name: "cos", method: cos },
     { name: "rand", method: rand },
