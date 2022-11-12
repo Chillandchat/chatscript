@@ -13,7 +13,8 @@ const calculate = (
   runtimeInfo: RuntimeInfo
 ): void => {
   let answer: number;
-  let expression: string;
+  let expression: string = parameters[0];
+
   for (let i = 0; i < runtimeInfo.stack.stack.length; i++) {
     expression = parameters[0].replaceAll(
       runtimeInfo.stack.stack[i].name,
@@ -41,6 +42,7 @@ const calculate = (
     );
   }
 
+  //@ts-ignore
   runtimeInfo.stack.getVariable(parameters[1]).modify(answer.toString());
 };
 
