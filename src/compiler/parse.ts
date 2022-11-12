@@ -1,4 +1,4 @@
-import { TreeNode } from "../utils";
+import { TreeNode } from "../utils/index.d";
 
 /**
  * This is the parse function, this function will parse the chat script file and output the AST of the file.
@@ -13,10 +13,18 @@ const parse = (data: string): Array<TreeNode> => {
 
   let openedQuote: boolean = false;
   let openedBracket: boolean = false;
+  let closedNestedBracket: number = 0;
 
   let current: string = "";
   for (let i = 0; i < data.length; i++) {
     let opened: boolean = false;
+
+    if (openedBracket && !openedQuote && data[i] === "(") {
+      closedNestedBracket -= 1;
+    }
+    if (openedBracket && !openedQuote && data[i] === ")") {
+      closedNestedBracket += 1;
+    }
 
     if (data[i] === '"' && !openedBracket && openedQuote) {
       opened = true;
@@ -27,7 +35,8 @@ const parse = (data: string): Array<TreeNode> => {
       opened = true;
     }
     if (data[i] === "(" && !openedQuote) openedBracket = true;
-    if (data[i] === ")" && !openedQuote) openedBracket = false;
+    if (data[i] === ")" && !openedQuote && closedNestedBracket === 0)
+      openedBracket = false;
 
     if (data[i] !== ";") current = current.concat(data[i]);
     if (data[i] === ";" && (openedBracket || openedQuote))
