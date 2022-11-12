@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "commonjs",
-    "strict": false,
+    "module": "CommonJS",
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "./build/js",
     "removeComments": true,
     "allowJs": true,
     "checkJs": true
+  },
+  "ts-node": {
+    "esm": true
   }
 }
