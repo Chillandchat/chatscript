@@ -34,6 +34,7 @@ class CallStack {
       if (value.name === name) data = value;
     });
 
+    // @ts-ignore
     return data;
   }
 
