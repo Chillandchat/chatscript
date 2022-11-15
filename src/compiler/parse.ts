@@ -19,10 +19,12 @@ const parse = (data: string): Array<TreeNode> => {
   for (let i = 0; i < data.length; i++) {
     let opened: boolean = false;
 
-    if (openedBracket && !openedQuote && data[i] === "(") {
-      closedNestedBracket -= 1;
-    }
-    if (openedBracket && !openedQuote && data[i] === ")") {
+    if (
+      openedBracket &&
+      !openedQuote &&
+      data[i] === ")" &&
+      closedNestedBracket !== 0
+    ) {
       closedNestedBracket += 1;
     }
 
@@ -34,16 +36,20 @@ const parse = (data: string): Array<TreeNode> => {
       openedQuote = true;
       opened = true;
     }
-    if (data[i] === "(" && !openedQuote) openedBracket = true;
+    if (data[i] === "(" && !openedQuote && !openedBracket) openedBracket = true;
     if (data[i] === ")" && !openedQuote && closedNestedBracket === 0)
       openedBracket = false;
 
     if (data[i] !== ";") current = current.concat(data[i]);
     if (data[i] === ";" && (openedBracket || openedQuote))
       current = current.concat(data[i]);
+
     if (data[i] === ";" && !openedBracket && !openedQuote) {
       lines.push(current);
       current = "";
+    }
+    if (openedBracket && !openedQuote && data[i] === "(") {
+      closedNestedBracket -= 1;
     }
   }
   for (let i = 0; i < lines.length; i++) {
@@ -57,6 +63,8 @@ const parse = (data: string): Array<TreeNode> => {
 
     let openedQuote: boolean = false;
     let openedBracket: boolean = false;
+
+    let closedNestedBracket: number = 0;
 
     // Pre-processors
     if (value.replaceAll(" ", "")[0] === "#") {
@@ -103,15 +111,23 @@ const parse = (data: string): Array<TreeNode> => {
           currentArgument = "";
         }
         if (value[i] === `"` || value[i] === `(` || value[i] === `)`) {
-          if (value[i] === "(") {
+          if (value[i] === "(" && openedBracket) {
+            closedNestedBracket -= 1;
+          }
+
+          if (value[i] === "(" && !openedBracket) {
             openedBracket = true;
           }
-          if (value[i] === ")") {
+          if (value[i] === ")" && closedNestedBracket === 0) {
             openedBracket = false;
             currentNode.arguments.push(currentArgument);
             currentArgument = "";
             i++;
             continue;
+          }
+
+          if (value[i] === ")" && openedBracket) {
+            closedNestedBracket += 1;
           }
 
           if ((openedQuote || i === value.length - 1) && !openedBracket) {
@@ -140,6 +156,7 @@ const parse = (data: string): Array<TreeNode> => {
       }
     }
 
+    closedNestedBracket = 0;
     tree.push(currentNode);
     currentNode = { command: "", arguments: [] };
     currentArgument = "";
