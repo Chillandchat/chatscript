@@ -2,7 +2,6 @@ import { Variable } from "./variable";
 import parse from "../../compiler/parse";
 import { FunctionInstance, RuntimeInfo } from "../../utils";
 import run from "../run";
-import CompilerError from "../../utils/error";
 
 const repeat = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   let body: string;
@@ -28,21 +27,9 @@ const repeat = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
       body = Buffer.from(JSON.stringify(functionData.body)).toString("base64");
     } else {
       let editedBody: string = parameters[1].slice(1, parameters[1].length - 1);
-      runtimeInfo.stack.stack.forEach((value: Variable): void => {
-        editedBody = editedBody.replaceAll(value.name, value.value);
-      });
-
-      if (editedBody.includes("$")) {
-        new CompilerError(
-          "Unable to run repeat function.",
-          runtimeInfo.file,
-          String(runtimeInfo.line),
-          "error"
-        );
-      }
       body = Buffer.from(JSON.stringify(parse(editedBody))).toString("base64");
     }
-    run(body);
+    run(body, runtimeInfo.stack);
   }
 };
 

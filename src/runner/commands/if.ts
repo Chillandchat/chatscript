@@ -37,68 +37,75 @@ const _if = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
         );
   }
 
-  for (let i = 0; i < body.length; i++) {
-    for (let j = 0; j < body[i].arguments.length; j++) {
-      if (body[i].arguments[j][0] === "$") {
-        runtimeInfo.stack.variableExists(body[i].arguments[j])
-          ? (body[i].arguments[j] = runtimeInfo.stack.getVariable(
-              body[i].arguments[j]
-            ).value)
-          : new CompilerError(
-              `${body[i].arguments[j]} is undefined, did you forget to define it??`,
-              runtimeInfo.file,
-              runtimeInfo.line.toString(),
-              "error"
-            );
-      }
-    }
-  }
-
   switch (parameters[1]) {
     case "isEqualTo":
       if (parameters[0] === parameters[2]) {
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
 
     case "notEqualTo":
       if (parameters[0] !== parameters[2]) {
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
 
     case "greaterThan":
       if (Number(parameters[0]) > Number(parameters[2])) {
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
 
     case "smallerThan":
       if (Number(parameters[0]) < Number(parameters[2])) {
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
 
     case "greaterOrEqualTo":
       if (Number(parameters[0]) >= Number(parameters[2])) {
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
 
     case "smallerOrEqualTo":
       if (Number(parameters[0]) <= Number(parameters[2])) {
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
     case "isDivisibleBy":
       if (Number(parameters[0]) % Number(parameters[2]) === 0) {
         console.log("hi");
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
     case "isNotDivisibleBy":
       if (Number(parameters[0]) % Number(parameters[2]) !== 0) {
-        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+        run(
+          Buffer.from(JSON.stringify(body)).toString("base64"),
+          runtimeInfo.stack
+        );
       }
       break;
   }

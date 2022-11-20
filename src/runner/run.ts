@@ -3,12 +3,19 @@ import CompilerError from "../utils/error";
 import CallStack from "./commands/callStack";
 import Commands from "./commands/commands";
 
-const run = (ast: string): void => {
+const run = (ast: string, stack?: CallStack): void => {
+  let callStack: CallStack;
+
   const tree: Array<TreeNode> = JSON.parse(
     Buffer.from(ast, "base64").toString("ascii")
   );
 
-  const callStack: CallStack = new CallStack();
+  if (stack === undefined) {
+    callStack = new CallStack();
+  } else {
+    callStack = stack;
+  }
+
   let ran: boolean = false;
 
   tree.forEach((value: TreeNode): void => {

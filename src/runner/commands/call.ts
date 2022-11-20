@@ -31,7 +31,10 @@ const call = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
         )
       );
     }
-    run(Buffer.from(JSON.stringify(functionData.body)).toString("base64"));
+    run(
+      Buffer.from(JSON.stringify(functionData.body)).toString("base64"),
+      runtimeInfo.stack
+    );
   } else {
     new CompilerError(
       `${parameters[0]} is undefined, did you forget to define it??`,
