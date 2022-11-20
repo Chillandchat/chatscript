@@ -17,6 +17,7 @@ import tan from "./math/tan";
 import print from "./print";
 import prompt from "./prompt";
 import set from "./set";
+import repeat from "./repeat";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -31,6 +32,7 @@ namespace Commands {
     { name: "function", method: _function },
     { name: "if", method: _if },
     { name: "exit", method: exit },
+    { name: "repeat", method: repeat },
 
     { name: "sin", method: sin },
     { name: "calculate", method: calculate },
