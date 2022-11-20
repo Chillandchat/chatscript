@@ -55,38 +55,49 @@ const _if = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   }
 
   switch (parameters[1]) {
-    case "==":
+    case "isEqualTo":
       if (parameters[0] === parameters[2]) {
         run(Buffer.from(JSON.stringify(body)).toString("base64"));
       }
       break;
 
-    case "!=":
+    case "notEqualTo":
       if (parameters[0] !== parameters[2]) {
         run(Buffer.from(JSON.stringify(body)).toString("base64"));
       }
       break;
 
-    case ">":
+    case "greaterThan":
       if (Number(parameters[0]) > Number(parameters[2])) {
         run(Buffer.from(JSON.stringify(body)).toString("base64"));
       }
       break;
 
-    case "<":
+    case "smallerThan":
       if (Number(parameters[0]) < Number(parameters[2])) {
         run(Buffer.from(JSON.stringify(body)).toString("base64"));
       }
       break;
 
-    case ">=":
+    case "greaterOrEqualTo":
       if (Number(parameters[0]) >= Number(parameters[2])) {
         run(Buffer.from(JSON.stringify(body)).toString("base64"));
       }
       break;
 
-    case "<=":
+    case "smallerOrEqualTo":
       if (Number(parameters[0]) <= Number(parameters[2])) {
+        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+      }
+      break;
+    case "isDivisibleBy":
+      if (Number(parameters[0]) % Number(parameters[2]) === 0) {
+        console.log("hi");
+        run(Buffer.from(JSON.stringify(body)).toString("base64"));
+      }
+      break;
+    case "isNotDivisibleBy":
+      if (Number(parameters[0]) % Number(parameters[2]) !== 0) {
         run(Buffer.from(JSON.stringify(body)).toString("base64"));
       }
       break;
