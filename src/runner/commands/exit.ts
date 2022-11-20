@@ -9,7 +9,7 @@ import { RuntimeInfo } from "./../../utils/index.d";
  */
 
 const exit = (parameters: Array<string>, _runtimeInfo: RuntimeInfo): void => {
-  if (parameters[0] === "undefined") {
+  if (parameters[0] === undefined) {
     process.exit(0);
   } else {
     process.exit(Number(parameters[0]));
