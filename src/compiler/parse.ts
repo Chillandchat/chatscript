@@ -145,7 +145,7 @@ const parse = (data: string): Array<TreeNode> => {
       }
 
       if (currentNode.command === "") {
-        if (value[i] === " ") {
+        if (value[i] === " " && currentCommand !== "") {
           currentNode.command = currentCommand;
           currentCommand = "";
         }
