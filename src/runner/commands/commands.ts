@@ -20,6 +20,7 @@ import set from "./set";
 import repeat from "./repeat";
 import read from "./read";
 import clear from "./clear";
+import delay from "./delay";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -36,6 +37,7 @@ namespace Commands {
     { name: "if", method: _if },
     { name: "exit", method: exit },
     { name: "repeat", method: repeat },
+    { name: "delay", method: delay },
 
     { name: "sin", method: sin },
     { name: "calculate", method: calculate },
