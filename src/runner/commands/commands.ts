@@ -18,6 +18,7 @@ import print from "./print";
 import prompt from "./prompt";
 import set from "./set";
 import repeat from "./repeat";
+import read from "./read";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -42,6 +43,8 @@ namespace Commands {
     { name: "tan", method: tan },
     { name: "round", method: round },
     { name: "pi", method: pi },
+
+    { name: "read", method: read },
   ];
 }
 
