@@ -19,11 +19,13 @@ import prompt from "./prompt";
 import set from "./set";
 import repeat from "./repeat";
 import read from "./read";
+import clear from "./clear";
 
 namespace Commands {
   export const commands: Array<Command> = [
     { name: "print", method: print },
     { name: "prompt", method: prompt },
+    { name: "clear", method: clear },
 
     { name: "set", method: set },
     { name: "delete", method: deleteVariable },
