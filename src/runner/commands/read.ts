@@ -1,4 +1,5 @@
 import fs from "fs";
+
 import { Variable } from "./variable";
 import { RuntimeInfo } from "../../utils";
 import CompilerError from "../../utils/error";
