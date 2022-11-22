@@ -1,4 +1,3 @@
-import { RuntimeInfo } from "./../../utils/index.d";
 import { Command } from "../../utils/index.d";
 import call from "./call";
 import compare from "./compare";
@@ -21,6 +20,9 @@ import repeat from "./repeat";
 import read from "./read";
 import clear from "./clear";
 import delay from "./delay";
+import write from "./write";
+import append from "./append";
+import create from "./create";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -49,6 +51,9 @@ namespace Commands {
     { name: "pi", method: pi },
 
     { name: "read", method: read },
+    { name: "write", method: write },
+    { name: "append", method: append },
+    { name: "create", method: create },
   ];
 }
 
