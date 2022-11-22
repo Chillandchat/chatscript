@@ -3,6 +3,13 @@ import parse from "../../compiler/parse";
 import { FunctionInstance, RuntimeInfo } from "../../utils";
 import run from "../run";
 
+/**
+ * This is the repeat function, this function will run the code snippet in parameter 2 parameter 1 times.
+ *
+ * @param {Array<string>} parameters The data from the chat-script command.
+ * @param {RuntimeInfo} runtimeInfo The runtime information.
+ */
+
 const repeat = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   let body: string;
   console.log(parameters);
@@ -34,7 +41,3 @@ const repeat = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
 };
 
 export default repeat;
-
-// Syntax:
-// repeat num_of_times (function body);
-//             arg1^       arg2^
