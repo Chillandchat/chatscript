@@ -33,7 +33,10 @@ const _import = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   );
 
   newStack?.forEach((value: Variable): void => {
-    runtimeInfo.stack.stack.push(value);
+    if (value.name.includes("$EXPORT_")) {
+      value.name = value.name.replace("$EXPORT_", "$");
+      runtimeInfo.stack.stack.push(value);
+    }
   });
 };
 
