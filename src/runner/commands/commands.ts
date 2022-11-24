@@ -24,6 +24,7 @@ import write from "./write";
 import append from "./append";
 import create from "./create";
 import _import from "./import";
+import _export from "./export";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -41,7 +42,9 @@ namespace Commands {
     { name: "exit", method: exit },
     { name: "repeat", method: repeat },
     { name: "delay", method: delay },
+
     { name: "import", method: _import },
+    { name: "export", method: _export },
 
     { name: "sin", method: sin },
     { name: "calculate", method: calculate },
