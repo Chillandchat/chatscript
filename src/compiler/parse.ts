@@ -57,6 +57,10 @@ const parse = (data: string): Array<TreeNode> => {
   }
 
   lines.forEach((value: string, index: number): void => {
+    value.slice(0, value.length - 1).includes(` `)
+      ? undefined
+      : (value = value.concat(" "));
+
     let currentNode: TreeNode = { command: "", arguments: [] };
     let currentCommand: string = "";
     let currentArgument: string = "";
