@@ -14,10 +14,22 @@ const parse = (data: string): Array<TreeNode> => {
   let openedQuote: boolean = false;
   let openedBracket: boolean = false;
   let closedNestedBracket: number = 0;
+  let isComment: boolean = false;
 
   let current: string = "";
   for (let i = 0; i < data.length; i++) {
     let opened: boolean = false;
+
+    if (isComment || data[i] === "#") {
+      if (data[i] === "#") {
+        isComment = true;
+      }
+
+      if (isComment && data[i] === "\n") {
+        isComment = false;
+      }
+      continue;
+    }
 
     if (
       openedBracket &&
