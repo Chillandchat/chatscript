@@ -1,9 +1,0 @@
-$VAR = (sin 0);
-print $VAR;
-
-function $FUNC_PRINT_STUFF arg1 (
-print arg1;
-print "Hello world";
-);
-
-call $FUNC_PRINT_STUFF "Hello world";
