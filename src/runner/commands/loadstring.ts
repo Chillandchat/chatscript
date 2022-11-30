@@ -1,4 +1,4 @@
-import { RuntimeInfo, TreeNode } from "../utils/index.d";
+import { RuntimeInfo, TreeNode } from "../../utils/index.d";
 
 /**
 * This is the load string function, this function will parse and run the string in parameter 1
