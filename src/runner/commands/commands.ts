@@ -25,6 +25,7 @@ import append from "./append";
 import create from "./create";
 import _import from "./import";
 import _export from "./export";
+import loadString from "./loadstring";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -45,6 +46,7 @@ namespace Commands {
 
     { name: "import", method: _import },
     { name: "export", method: _export },
+    { name: "load_string", method: loadString },
 
     { name: "sin", method: sin },
     { name: "calculate", method: calculate },
