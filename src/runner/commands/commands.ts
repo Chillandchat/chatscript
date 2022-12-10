@@ -26,6 +26,7 @@ import create from "./create";
 import _import from "./import";
 import _export from "./export";
 import loadString from "./loadstring";
+import length from "./length";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -43,6 +44,7 @@ namespace Commands {
     { name: "exit", method: exit },
     { name: "repeat", method: repeat },
     { name: "delay", method: delay },
+    { name: "length", method: length },
 
     { name: "import", method: _import },
     { name: "export", method: _export },
