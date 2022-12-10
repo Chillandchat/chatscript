@@ -1,4 +1,4 @@
-<p align="center"how><img src="https://github.com/Chill-and-chat/Chill-and-chat/blob/master/logo.svg/" style="width:12em;"/></p>
+<p align="center"how><img src="https://github.com/Chillandchat/.github/blob/main/logo.svg" style="width:12em;"/></p>
 
 # Chill&chat CLI
 
