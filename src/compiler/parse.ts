@@ -66,6 +66,7 @@ const parse = (data: string): Array<TreeNode> => {
   }
   for (let i = 0; i < lines.length; i++) {
     lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "");
+    lines[i] = lines[i].replaceAll("<endline>", "\n");
   }
 
   lines.forEach((value: string, index: number): void => {
