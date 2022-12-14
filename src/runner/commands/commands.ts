@@ -29,6 +29,7 @@ import loadString from "./loadstring";
 import length from "./length";
 import array from "./array";
 import concat from "./concat";
+import get from "./get";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -47,8 +48,10 @@ namespace Commands {
     { name: "repeat", method: repeat },
     { name: "delay", method: delay },
     { name: "length", method: length },
-    { name: "array", method: array },
     { name: "concat", method: concat },
+    { name: "get", method: get },
+
+    { name: "array", method: array },
 
     { name: "import", method: _import },
     { name: "export", method: _export },
