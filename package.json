@@ -8,8 +8,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "echo 'Starting...' && ts-node .",
-    "build": "echo 'Compiling Typescript...' && tsc"
+    "build": "echo 'Compiling Typescript...' && tsc",
+    "test": "echo 'Compiling test code...' && ts-node ./src/index.ts compile ./__tests__/main.chat && echo 'Running test code...' && ts-node ./src/index.ts run ./__tests__/main.out.chat && echo 'Done!'",
+    "clean": "echo 'Cleaning...' && rm -r ./__tests__/main.out.chat"
   },
   "dependencies": {
     "axios": "^0.27.2",
