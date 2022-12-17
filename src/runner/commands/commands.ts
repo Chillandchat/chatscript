@@ -30,6 +30,7 @@ import length from "./length";
 import array from "./array";
 import concat from "./concat";
 import get from "./get";
+import object from "./object";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -52,6 +53,7 @@ namespace Commands {
     { name: "get", method: get },
 
     { name: "array", method: array },
+    { name: "object", method: object },
 
     { name: "import", method: _import },
     { name: "export", method: _export },
