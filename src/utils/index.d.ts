@@ -47,6 +47,15 @@ export interface RuntimeInfo {
   stack: CallStack;
 }
 
+/**
+ * This is the function instance interface, this interface outlines the shape of a chat-script function.
+ *
+ * @param {Array<string>} parameters The array of parameters suppliable to the function.
+ * @param {string} name The call name of the function.
+ * @param {Array<TreeNode>} body The PARSED body of the function.
+ * @note The body is the part that get run when called.
+ */
+
 export interface FunctionInstance {
   body: Array<TreeNode>;
   parameters: Array<string>;
