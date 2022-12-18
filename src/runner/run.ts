@@ -22,16 +22,16 @@ const run = async (
   }
 
   let ran: boolean = false;
-
   let treeIndex: number = 0;
+
   for (const value of tree) {
     let index: number = 0;
     for (const command of Commands.commands) {
       if (command.name === value.command) {
         ran = true;
         await command.method(value.arguments, {
-          line: index + 1,
-          file: process.argv[2],
+          line: treeIndex + 1,
+          file: process.argv[process.argv.length - 1],
           stack: callStack,
         });
       }
