@@ -32,6 +32,7 @@ import concat from "./concat";
 import get from "./get";
 import object from "./object";
 import fetch from "./fetch";
+import post from "./post";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -75,6 +76,7 @@ namespace Commands {
     { name: "create", method: create },
 
     { name: "fetch", method: fetch },
+    { name: "post", method: post },
   ];
 }
 
