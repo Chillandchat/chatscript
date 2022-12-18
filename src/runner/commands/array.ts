@@ -21,8 +21,20 @@ const array = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
 
     let returnValue: Array<string> = [];
 
-    for (let i = 0; i < parameters.length - 2; i++) {
-      returnValue.push(parameters[i]);
+    for (let i = 0; i < parameters.length - 1; i++) {
+      if (parameters[i].includes("$") && !parameters[i].includes('"')) {
+        if (!runtimeInfo.stack.variableExists(parameters[i])) {
+          new CompilerError(
+            `${parameters[i]} is undefined, did you forget to define it??`,
+            runtimeInfo.file,
+            runtimeInfo.line.toString(),
+            "error"
+          );
+        }
+        returnValue.push(runtimeInfo.stack.getVariable(parameters[i]).value);
+      } else {
+        returnValue.push(parameters[i]);
+      }
     }
 
     runtimeInfo.stack

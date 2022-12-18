@@ -11,28 +11,25 @@ import CompilerError from "../../utils/error";
 
 const get = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   if (runtimeInfo.stack.variableExists(parameters[parameters.length - 1])) {
-    if (parameters[parameters.length - 1].includes("$ARR")) {
-      const value: string = JSON.stringify(
-        JSON.parse(
-          runtimeInfo.stack.getVariable(parameters[parameters.length - 1]).value
-        )[Number(parameters[0])]
-      );
+    if (parameters[parameters.length - 2].includes("$ARR")) {
+      const value: string = JSON.parse(
+        runtimeInfo.stack.getVariable(parameters[parameters.length - 2]).value
+      )[Number(parameters[0])];
+
       runtimeInfo.stack
         .getVariable(parameters[parameters.length - 1])
         .modify(value);
-    }
-    if (parameters[parameters.length - 1].includes("$OBJ")) {
-      const value: string = JSON.stringify(
-        JSON.parse(
-          runtimeInfo.stack.getVariable(parameters[parameters.length - 1]).value
-        )[parameters[0]]
-      );
+    } else if (parameters[parameters.length - 2].includes("$OBJ")) {
+      const value: string = JSON.parse(
+        runtimeInfo.stack.getVariable(parameters[parameters.length - 2]).value
+      )[parameters[0]];
+
       runtimeInfo.stack
         .getVariable(parameters[parameters.length - 1])
         .modify(value);
     } else {
       const value: string = runtimeInfo.stack.getVariable(
-        parameters[parameters.length - 1]
+        parameters[parameters.length - 2]
       ).value[Number(parameters[0])];
 
       runtimeInfo.stack

@@ -68,7 +68,6 @@ const object = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
       }
     }
 
-    console.log(returnValue);
     runtimeInfo.stack
       .getVariable(parameters[parameters.length - 1])
       .modify(JSON.stringify(returnValue));
