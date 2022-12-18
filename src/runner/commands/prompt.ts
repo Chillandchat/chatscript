@@ -9,13 +9,15 @@ import { RuntimeInfo } from "./../../utils/index.d";
  */
 
 const prompt = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
-  if (runtimeInfo.stack.variableExists(parameters[2])) {
+  if (runtimeInfo.stack.variableExists(parameters[parameters.length - 1])) {
     runtimeInfo.stack
-      .getVariable(parameters[2])
+      .getVariable(parameters[parameters.length - 1])
       .modify(require("prompt-sync")()(parameters[0]));
   } else {
     new CompilerError(
-      `${parameters[2]} is undefined, did you forget to define it??`,
+      `${
+        parameters[parameters.length - 1]
+      } is undefined, did you forget to define it??`,
       runtimeInfo.file,
       runtimeInfo.line.toString(),
       "error"
