@@ -19,11 +19,7 @@ const fetch = async (
     await axios
       .get(parameters[0])
       .then((response: AxiosResponse): void => {
-        let tmpResponse: any = response;
-        delete tmpResponse.data;
-
         const returnValue: any = response.data;
-        returnValue.meta = tmpResponse;
 
         runtimeInfo.stack
           .getVariable(parameters[parameters.length - 1])
