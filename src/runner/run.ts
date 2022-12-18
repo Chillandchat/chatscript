@@ -4,11 +4,11 @@ import CompilerError from "../utils/error";
 import CallStack from "./commands/callStack";
 import Commands from "./commands/commands";
 
-const run = (
+const run = async (
   ast: string,
   stack?: CallStack,
   returnStack?: boolean
-): void | Array<Variable> => {
+): Promise<void | Array<Variable>> => {
   let callStack: CallStack;
 
   const tree: Array<TreeNode> = JSON.parse(
@@ -23,11 +23,13 @@ const run = (
 
   let ran: boolean = false;
 
-  tree.forEach((value: TreeNode, treeIndex: number): void => {
-    Commands.commands.forEach((command: Command, index: number): void => {
+  let treeIndex: number = 0;
+  for (const value of tree) {
+    let index: number = 0;
+    for (const command of Commands.commands) {
       if (command.name === value.command) {
         ran = true;
-        command.method(value.arguments, {
+        await command.method(value.arguments, {
           line: index + 1,
           file: process.argv[2],
           stack: callStack,
@@ -45,11 +47,14 @@ const run = (
           "error"
         );
       }
-    });
-  });
 
-  if (returnStack) {
-    return callStack.stack;
+      if (returnStack) {
+        return callStack.stack;
+      }
+      index++;
+    }
+    index = 0;
+    treeIndex++;
   }
 };
 

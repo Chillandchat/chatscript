@@ -24,7 +24,7 @@ const _import = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
     );
   }
 
-  const newStack: void | Array<Variable> = run(
+  const newStack: Promise<void | Array<Variable>> = run(
     fs
       .readFileSync(parameters[0])
       .toString()
@@ -34,13 +34,13 @@ const _import = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
       ),
     undefined,
     true
-  );
-
-  newStack?.forEach((value: Variable): void => {
-    if (value.name.includes("$EXPORT_")) {
-      value.name = value.name.replace("$EXPORT_", "$");
-      runtimeInfo.stack.stack.push(value);
-    }
+  ).then((data: void | Array<Variable>): void => {
+    data?.forEach((value: Variable): void => {
+      if (value.name.includes("$EXPORT_")) {
+        value.name = value.name.replace("$EXPORT_", "$");
+        runtimeInfo.stack.stack.push(value);
+      }
+    });
   });
 };
 
