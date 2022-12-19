@@ -33,6 +33,8 @@ import get from "./get";
 import object from "./object";
 import fetch from "./fetch";
 import post from "./post";
+import roomExists from "./bot-api/roomExists";
+import _login from "./bot-api/login";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -77,6 +79,9 @@ namespace Commands {
 
     { name: "fetch", method: fetch },
     { name: "post", method: post },
+
+    { name: "room_exists", method: roomExists },
+    { name: "login", method: _login },
   ];
 }
 
