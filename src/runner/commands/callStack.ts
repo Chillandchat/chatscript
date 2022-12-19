@@ -1,3 +1,4 @@
+import CompilerError from "../../utils/error";
 import { Variable } from "./variable";
 
 /**
@@ -25,10 +26,19 @@ class CallStack {
    * This is the get variable method, this method will return the data of the variable.
    *
    * @param {string} name The name of the variable.
+   * @optional @param {boolean} allowProtectionBypass If the command is allowed to bypass the variable protection.
    * @returns {Variable} The instance of the variable.
    */
 
-  public getVariable(name: string): Variable {
+  public getVariable(name: string, allowProtectionBypass?: boolean): Variable {
+    if (name.includes("$!PROTECTED") && !allowProtectionBypass)
+      new CompilerError(
+        "Permission denied, cannot read protected variables!",
+        "Unknown",
+        "Unknown",
+        "error"
+      );
+
     let data: Variable;
     this.stack.forEach((value: Variable): void => {
       if (value.name === name) data = value;
