@@ -36,6 +36,12 @@ import post from "./post";
 import roomExists from "./bot-api/roomExists";
 import _login from "./bot-api/login";
 import _getRooms from "./bot-api/getRooms";
+import signout from "./bot-api/signout";
+import _getPublicRooms from "./bot-api/getPublicRooms";
+import _deleteMessage from "./bot-api/deleteMessage";
+import _followUser from "./bot-api/followUser";
+import _getMessages from "./bot-api/getMessages";
+import _joinRoom from "./bot-api/joinRoom";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -83,7 +89,13 @@ namespace Commands {
 
     { name: "room_exists", method: roomExists },
     { name: "login", method: _login },
+    { name: "signout", method: signout },
+    { name: "get_public_rooms", method: _getPublicRooms },
+    { name: "delete_message", method: _deleteMessage },
+    { name: "follow", method: _followUser },
+    { name: "get_messages", method: _getMessages },
     { name: "get_rooms", method: _getRooms },
+    { name: "join", method: _joinRoom },
   ];
 }
 

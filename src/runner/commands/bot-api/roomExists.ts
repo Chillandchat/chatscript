@@ -13,11 +13,11 @@ const roomExists = (
   runtimeInfo: RuntimeInfo
 ): void => {
   if (runtimeInfo.stack.variableExists(parameters[parameters.length - 1])) {
-    const roomId: string = runtimeInfo.stack.variableExists(parameters[0])
-      ? runtimeInfo.stack.getVariable(parameters[0]).value
-      : parameters[0];
-
-    if (Boolean(runtimeInfo.stack.getVariable("$!PROTECTED_IS_AUTHENTICATED", true)))
+    if (
+      Boolean(
+        runtimeInfo.stack.getVariable("$!PROTECTED_IS_AUTHENTICATED", true)
+      )
+    )
       runtimeInfo.stack
         .getVariable(parameters[parameters.length - 1])
         .modify(

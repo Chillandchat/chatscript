@@ -1,17 +1,17 @@
-import { RuntimeInfo } from "../../../utils";
 import CompilerError from "../../../utils/error";
 import { RoomType } from "../../../utils/scripts";
-import getRoom from "../../../utils/scripts/getRooms";
+import getPublicRooms from "../../../utils/scripts/getPublicRooms";
+import { RuntimeInfo } from "./../../../utils/index.d";
 
 /**
- * This is the get rooms command, this command will get the rooms that the logged belongs in,
- * and will return it into the variable in the parameter.
+ * This is the get public rooms command,
+ * this command will get all the public rooms from the server and return it into the variable in parameter 1.
  *
  * @param {Array<string>} parameters The data from the chat-script command.
  * @param {RuntimeInfo} runtimeInfo The runtime information.
  */
 
-const _getRooms = async (
+const _getPublicRooms = async (
   parameters: Array<string>,
   runtimeInfo: RuntimeInfo
 ): Promise<void> => {
@@ -28,19 +28,15 @@ const _getRooms = async (
         );
       }
 
-      await getRoom(
-        JSON.parse(
-          runtimeInfo.stack.getVariable("$!PROTECTED_USER_INFO", true).value
-        )?.username
-      )
-        .then((rooms: Array<RoomType>): void => {
+      await getPublicRooms()
+        .then((data: Array<RoomType>): void => {
           runtimeInfo.stack
             .getVariable(parameters[parameters.length - 1])
-            .modify(JSON.stringify(rooms));
+            .modify(JSON.stringify(data));
         })
         .catch((err: unknown): void => {
           new CompilerError(
-            `Unable to get rooms: ${err}`,
+            `Unable to get public rooms: ${err}`,
             runtimeInfo.file,
             runtimeInfo.line.toString(),
             "error"
@@ -66,4 +62,4 @@ const _getRooms = async (
   }
 };
 
-export default _getRooms;
+export default _getPublicRooms;
