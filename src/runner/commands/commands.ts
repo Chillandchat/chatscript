@@ -42,6 +42,7 @@ import _deleteMessage from "./bot-api/deleteMessage";
 import _followUser from "./bot-api/followUser";
 import _getMessages from "./bot-api/getMessages";
 import _joinRoom from "./bot-api/joinRoom";
+import _removeRoom from "./bot-api/removeRoom";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -96,6 +97,7 @@ namespace Commands {
     { name: "get_messages", method: _getMessages },
     { name: "get_rooms", method: _getRooms },
     { name: "join", method: _joinRoom },
+    { name: "remove", method: _removeRoom },
   ];
 }
 
