@@ -9,10 +9,10 @@ import { RuntimeInfo } from "./../../../utils/index.d";
  * @param {RuntimeInfo} runtimeInfo The runtime information.
  */
 
-const _removeRoom = (
+const _removeRoom = async (
   parameters: Array<string>,
   runtimeInfo: RuntimeInfo
-): void => {
+): Promise<void> => {
   if (
     Boolean(runtimeInfo.stack.getVariable("$!PROTECTED_IS_AUTHENTICATED", true))
   ) {
@@ -30,7 +30,7 @@ const _removeRoom = (
       room = runtimeInfo.stack.getVariable(parameters[0]).value;
     }
 
-    removeRoom(
+    await removeRoom(
       room,
       JSON.parse(runtimeInfo.stack.getVariable("$!PROTECTED_USER_INFO").value)
         ?.username
