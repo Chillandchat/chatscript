@@ -16,8 +16,21 @@ const _followUser = (
   if (
     Boolean(runtimeInfo.stack.getVariable("$!PROTECTED_IS_AUTHENTICATED", true))
   ) {
+    let targetUser: string = parameters[0];
+    if (parameters[0].includes("$")) {
+      if (!runtimeInfo.stack.variableExists(parameters[0])) {
+        new CompilerError(
+          `${parameters[0]} is undefined.`,
+          runtimeInfo.file,
+          runtimeInfo.line.toString(),
+          "error"
+        );
+      }
+      targetUser = runtimeInfo.stack.getVariable(parameters[0]).value;
+    }
+
     followUser(
-      parameters[0],
+      targetUser,
       JSON.parse(runtimeInfo.stack.getVariable("$!PROTECTED_USER_INFO").value)
         ?.username
     )
@@ -32,7 +45,7 @@ const _followUser = (
       });
   } else {
     new CompilerError(
-      "Error: Not authenticated, please authenticate using the login method first.",
+      "Not authenticated, please authenticate using the login method first.",
       runtimeInfo.file,
       runtimeInfo.line.toString(),
       "error"

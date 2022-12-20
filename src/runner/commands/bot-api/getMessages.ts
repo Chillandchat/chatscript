@@ -18,23 +18,48 @@ const _getMessages = (
   if (
     Boolean(runtimeInfo.stack.getVariable("$!PROTECTED_IS_AUTHENTICATED", true))
   ) {
-    getMessages(parameters[0])
-      .then((messages: Array<MessageType>): void => {
-        runtimeInfo.stack
-          .getVariable(parameters[1])
-          .modify(JSON.stringify(messages));
-      })
-      .catch((err: unknown): void => {
-        new CompilerError(
-          `Unable to get messages: ${err}`,
-          runtimeInfo.file,
-          runtimeInfo.line.toString(),
-          "error"
-        );
-      });
+    if (runtimeInfo.stack.variableExists(parameters[1])) {
+      let room: string = parameters[0];
+
+      if (parameters[0].includes("$")) {
+        if (!runtimeInfo.stack.variableExists(parameters[0])) {
+          new CompilerError(
+            `${parameters[0]} is undefined.`,
+            runtimeInfo.file,
+            runtimeInfo.line.toString(),
+            "error"
+          );
+        }
+        room = runtimeInfo.stack.getVariable(parameters[0]).value;
+      }
+
+      getMessages(room)
+        .then((messages: Array<MessageType>): void => {
+          runtimeInfo.stack
+            .getVariable(parameters[1])
+            .modify(JSON.stringify(messages));
+        })
+        .catch((err: unknown): void => {
+          new CompilerError(
+            `Unable to get messages: ${err}`,
+            runtimeInfo.file,
+            runtimeInfo.line.toString(),
+            "error"
+          );
+        });
+    } else {
+      new CompilerError(
+        "Error: Not authenticated, please authenticate using the login method first.",
+        runtimeInfo.file,
+        runtimeInfo.line.toString(),
+        "error"
+      );
+    }
   } else {
     new CompilerError(
-      "Error: Not authenticated, please authenticate using the login method first.",
+      `${
+        parameters[parameters.length - 1]
+      } is undefined, did you forget to define it??`,
       runtimeInfo.file,
       runtimeInfo.line.toString(),
       "error"

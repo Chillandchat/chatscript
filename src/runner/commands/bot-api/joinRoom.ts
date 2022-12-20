@@ -12,17 +12,29 @@ const _joinRoom = (
     let roomName: string = parameters[0];
     let roomPassword: string = parameters[1];
 
-    if (
-      parameters[0].includes("$") &&
-      runtimeInfo.stack.variableExists(parameters[0])
-    )
+    if (parameters[0].includes("$")) {
+      if (!runtimeInfo.stack.variableExists(parameters[0])) {
+        new CompilerError(
+          `${parameters[0]} is undefined.`,
+          runtimeInfo.file,
+          runtimeInfo.line.toString(),
+          "error"
+        );
+      }
       roomName = runtimeInfo.stack.getVariable(parameters[0]).value;
+    }
 
-    if (
-      parameters[1].includes("$") &&
-      runtimeInfo.stack.variableExists(parameters[1])
-    )
+    if (parameters[1].includes("$")) {
+      if (!runtimeInfo.stack.variableExists(parameters[1])) {
+        new CompilerError(
+          `${parameters[1]} is undefined.`,
+          runtimeInfo.file,
+          runtimeInfo.line.toString(),
+          "error"
+        );
+      }
       roomPassword = runtimeInfo.stack.getVariable(parameters[1]).value;
+    }
 
     joinRoom(
       JSON.parse(runtimeInfo.stack.getVariable("$!PROTECTED_USER_INFO").value)

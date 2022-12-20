@@ -29,6 +29,33 @@ const _deleteMessage = async (
       );
     }
 
+    let message: string = parameters[0];
+    let room: string = parameters[1];
+
+    if (parameters[0].includes("$")) {
+      if (!runtimeInfo.stack.variableExists(parameters[0])) {
+        new CompilerError(
+          `${parameters[0]} is undefined.`,
+          runtimeInfo.file,
+          runtimeInfo.line.toString(),
+          "error"
+        );
+      }
+      message = runtimeInfo.stack.getVariable(parameters[0]).value;
+    }
+
+    if (parameters[1].includes("$")) {
+      if (!runtimeInfo.stack.variableExists(parameters[1])) {
+        new CompilerError(
+          `${parameters[1]} is undefined.`,
+          runtimeInfo.file,
+          runtimeInfo.line.toString(),
+          "error"
+        );
+      }
+      room = runtimeInfo.stack.getVariable(parameters[1]).value;
+    }
+
     await deleteMessage(parameters[0], parameters[1])
       .then((): void => {})
       .catch((err: unknown): void => {
@@ -41,7 +68,7 @@ const _deleteMessage = async (
       });
   } else {
     new CompilerError(
-      "Error: Not authenticated, please authenticate using the login method first.",
+      "Not authenticated, please authenticate using the login method first.",
       runtimeInfo.file,
       runtimeInfo.line.toString(),
       "error"
