@@ -49,7 +49,7 @@ const _sendMessage = async (
     const messageData: MessageType = {
       id: uuid(),
       user: JSON.parse(
-        runtimeInfo.stack.getVariable("$!PROTECTED_USER_INFO").value
+        runtimeInfo.stack.getVariable("$!PROTECTED_USER_INFO", true).value
       )?.username,
       content: message,
       room: room,
