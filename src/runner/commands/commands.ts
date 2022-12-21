@@ -46,6 +46,7 @@ import _removeRoom from "./bot-api/removeRoom";
 import _reportRoom from "./bot-api/reportRoom";
 import _sendMessage from "./bot-api/sendMessage";
 import _unfollowUser from "./bot-api/unFollowUser";
+import onMessage from "./bot-api/onMessage";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -104,6 +105,7 @@ namespace Commands {
     { name: "report", method: _reportRoom },
     { name: "send", method: _sendMessage },
     { name: "unfollow", method: _unfollowUser },
+    { name: "on_message", method: onMessage },
   ];
 }
 
