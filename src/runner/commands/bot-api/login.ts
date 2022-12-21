@@ -29,6 +29,10 @@ const _login = async (
     );
   }
 
+  runtimeInfo.stack.newVariable("$!PROTECTED_IS_AUTHENTICATED", "null");
+  runtimeInfo.stack.newVariable("$!PROTECTED_USER_INFO", "null");
+  runtimeInfo.stack.newVariable("$!PROTECTED_ROOMS", "null");
+
   let username: string = parameters[0];
   let password: string = parameters[1];
 
@@ -78,7 +82,7 @@ const _login = async (
       runtimeInfo.stack
         .getVariable("$!PROTECTED_USER_INFO", true)
         //@ts-ignore
-        .modify(JSON.parse(data));
+        .modify(JSON.stringify(data), true);
     else
       new CompilerError(
         "Invalid user.",
