@@ -1,7 +1,10 @@
 import { v4 as uuid } from "uuid";
 import { io } from "socket.io-client";
+import dotenv from "dotenv";
 
 import { KeyboardMode } from "./index.d";
+
+dotenv.config();
 
 /**
  * This is the set keyboard socket function this function will set the keyboard socket to the mode you specify.

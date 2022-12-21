@@ -1,5 +1,8 @@
 import { v4 as uuid } from "uuid";
 import { io } from "socket.io-client";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 /**
  * This is the delete message function, this function will delete a message using the server socket
