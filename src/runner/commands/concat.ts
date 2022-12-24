@@ -10,11 +10,25 @@ import { RuntimeInfo } from "./../../utils/index.d";
 
 const concat = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   if (runtimeInfo.stack.variableExists(parameters[parameters.length - 1])) {
+    let concatData: string = parameters[0];
+
+    if (parameters[0][0] === "$") {
+      if (!runtimeInfo.stack.variableExists(parameters[0])) {
+        new CompilerError(
+          `${parameters[0]} is undefined.`,
+          runtimeInfo.file,
+          runtimeInfo.line.toString(),
+          "error"
+        );
+      }
+      concatData = runtimeInfo.stack.getVariable(parameters[0]).value;
+    }
+
     if (parameters[parameters.length - 1].includes("$ARR")) {
       const value: string = JSON.stringify(
         JSON.parse(
           runtimeInfo.stack.getVariable(parameters[parameters.length - 1]).value
-        ).concat(parameters[0])
+        ).concat(concatData)
       );
       runtimeInfo.stack
         .getVariable(parameters[parameters.length - 1])
@@ -22,7 +36,7 @@ const concat = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
     } else {
       const value: string = runtimeInfo.stack
         .getVariable(parameters[parameters.length - 1])
-        .value.concat(parameters[0]);
+        .value.concat(concatData);
 
       runtimeInfo.stack
         .getVariable(parameters[parameters.length - 1])
