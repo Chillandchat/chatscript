@@ -24,11 +24,9 @@ const call = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
       runtimeInfo.stack.getVariable(parameters[0]).value
     );
     for (let i = 0; i < functionData.parameters.length; i++) {
-      functionData.body = JSON.parse(
-        JSON.stringify(functionData.body).replaceAll(
-          functionData.parameters[i],
-          parameters[i + 1]
-        )
+      runtimeInfo.stack.newVariable(
+        functionData.parameters[i],
+        parameters[i + 1]
       );
     }
     run(

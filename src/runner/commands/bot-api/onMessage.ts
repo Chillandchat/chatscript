@@ -63,11 +63,9 @@ const onMessage = (
             );
           }
 
-          functionData.body = JSON.parse(
-            JSON.stringify(functionData.body).replaceAll(
-              functionData.parameters[0],
-              JSON.stringify(messageResponse)
-            )
+          runtimeInfo.stack.newVariable(
+            functionData.parameters[0],
+            JSON.stringify(messageResponse)
           );
 
           run(
