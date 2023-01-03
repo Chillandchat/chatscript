@@ -1,3 +1,31 @@
+
+/**
+ * Welcome to the...
+ *   ____ _     _ _ _  ___        _           _
+ *  / ___| |__ (_) | |( _ )   ___| |__   __ _| |_
+ * | |   | '_ \| | | |/ _ \/\/ __| '_ \ / _` | __|
+ * | |___| | | | | | | (_>  < (__| | | | (_| | |_
+ *  \____|_| |_|_|_|_|\___/\/\___|_| |_|\__,_|\__|  CLI
+ *
+ * codebase!
+ *
+ * This is the codebase guide for developers viewing this codebase.
+ *
+ * We have organized the codebase into the following folders:
+ * Source:
+ *    - runner: This is the where the code for the runner is stored.
+ *    - runner/commands: This is where the commands are stored, so it can be accessed when at runtime.
+ *    - utils: This is where the utilites are stored (e.g types declorations)
+ *    - compiler: This is where the compiler code is stored for easy access
+ *
+ * Tech stack:
+ *    - TypeScript: This is the main language used in the application.
+ *    - Socket.io: This is the framework used to create the realtime API.
+ *    - Axios: This is the networking library used to communicate to the API.
+ *     
+ * Happy hacking!
+ */
+
 import compile from "./compiler/compile";
 import run from "./runner/run";
 import readFile from "./utils/readFile";
