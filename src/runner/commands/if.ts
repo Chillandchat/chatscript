@@ -93,7 +93,6 @@ const _if = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
       break;
     case "isDivisibleBy":
       if (Number(parameters[0]) % Number(parameters[2]) === 0) {
-        console.log("hi");
         run(
           Buffer.from(JSON.stringify(body)).toString("base64"),
           runtimeInfo.stack
