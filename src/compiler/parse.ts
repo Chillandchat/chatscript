@@ -1,4 +1,7 @@
+import { v4 as uuid } from "uuid";
+
 import { TreeNode } from "../utils/index.d";
+import insert from "../utils/insert";
 
 /**
  * This is the parse function, this function will parse the chat script file and output the AST of the file.
@@ -178,6 +181,24 @@ const parse = (data: string): Array<TreeNode> => {
     currentNode = { command: "", arguments: [] };
     currentArgument = "";
     currentCommand = "";
+  });
+
+  tree.forEach((value: TreeNode, index: number): void => {
+    value.arguments.forEach((argument: string, argumentIndex: number): void => {
+      if (argument.includes("!(")) {
+        const variableName: string = `$OBJ_$ARR_${uuid().toUpperCase()}`;
+
+        tree = insert(tree, index - 1, [
+          { command: "set", arguments: [`${variableName}`, argument.slice(1)] },
+        ]) as Array<TreeNode>;
+
+        value.arguments[argumentIndex] = variableName;
+
+        tree = insert(tree, index + 2, [
+          { command: "delete", arguments: [`${variableName}`] },
+        ]) as Array<TreeNode>;
+      }
+    });
   });
   return tree;
 };
