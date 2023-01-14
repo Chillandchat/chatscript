@@ -7,13 +7,14 @@
 This is the the official Chill&chat CLI for communicating with the Chill&chat API server, using this CLI you may create and program bots in Chill&chat. Create interactive bots with Javascript and deploy with a click.
 
 ### Docs
+
 The CLI documentation can be found in the wiki or by clicking [here](https://github.com/Chillandchat/cli/wiki)
 
 ### License
 
 This repository is licensed under the MIT License and is free for use. Please see the [LICENSE](https://github.com/Chillandchat/cli/blob/master/LICENSE) file for the full license.
 
-_Copyright (C) 2021-2022 Alvin cheng_
+_Copyright (C) 2021-2023 Alvin cheng_
 
 ## Contribution
 
