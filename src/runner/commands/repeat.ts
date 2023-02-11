@@ -12,7 +12,6 @@ import run from "../run";
 
 const repeat = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   let body: string;
-  console.log(parameters);
   runtimeInfo.stack.stack.forEach((value: Variable): void => {
     parameters[0] = parameters[0].replaceAll(value.name, value.value);
   });
