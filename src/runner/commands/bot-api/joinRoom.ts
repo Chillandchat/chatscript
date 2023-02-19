@@ -2,6 +2,14 @@ import CompilerError from "../../../utils/error";
 import joinRoom from "../../../utils/scripts/joinRoom";
 import { RuntimeInfo } from "./../../../utils/index.d";
 
+/**
+ * This is the join room command, this command will make the user join the room in parameter 1,
+ * with the password of parameter 2.
+ *
+ * @param {Array<string>} parameters The data from the chat-script command.
+ * @param {RuntimeInfo} runtimeInfo The runtime information.
+ */
+
 const _joinRoom = (
   parameters: Array<string>,
   runtimeInfo: RuntimeInfo
