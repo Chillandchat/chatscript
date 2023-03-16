@@ -45,7 +45,7 @@ import _joinRoom from "./bot-api/joinRoom";
 import _removeRoom from "./bot-api/removeRoom";
 import _reportRoom from "./bot-api/reportRoom";
 import _sendMessage from "./bot-api/sendMessage";
-import _unfollowUser from "./bot-api/unFollowUser";
+import _unfollowUser from "./bot-api/unfollowUser";
 import onMessage from "./bot-api/onMessage";
 
 namespace Commands {
