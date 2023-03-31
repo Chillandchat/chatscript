@@ -1,6 +1,6 @@
 {
   "name": "@chillandchat/cli",
-  "version": "1.0.0b",
+  "version": "1.1.0",
   "description": "The CLI for communicating with the Chill&chat server.",
   "main": "./src/index.ts",
   "repository": "https://github.com/Chillandchat/cli.git",
@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "build": "echo 'Building...' && cp -a ./src/ ./build/tmp && node build.js && tsc && echo 'Done!'",
-    "create-bin": "echo 'Building binary files...' && pkg ./build/js/src/index.js --output cli -t node14-macos,node12-linux,node14-linux,node14-win && echo 'Done!'",
+    "create-bin": "echo 'Building binary files...' && pkg ./build/js/src/index.js --debug --output cli -t node16-macos,node16-linux,node16-win && echo 'Done!'",
     "test": "echo 'Compiling test code...' && ts-node ./src/index.ts compile ./__tests__/main.chat && echo 'Running test code...' && ts-node ./src/index.ts run ./__tests__/main.out.chat && echo 'Done!'",
     "clean": "echo 'Cleaning...' && rm -r ./__tests__/main.out.chat"
   },
