@@ -47,14 +47,13 @@ const run = async (
           "error"
         );
       }
-
-      if (returnStack) {
-        return callStack.stack;
-      }
       index++;
     }
     index = 0;
     treeIndex++;
+  }
+  if (returnStack) {
+    return callStack.stack;
   }
 };
 

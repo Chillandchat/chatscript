@@ -14,7 +14,10 @@ import Variable from "./variable";
  * @param {RuntimeInfo} runtimeInfo The runtime information.
  */
 
-const _import = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
+const _import = async (
+  parameters: Array<string>,
+  runtimeInfo: RuntimeInfo
+): Promise<void> => {
   if (!fs.existsSync(parameters[0]) || !parameters[0].includes(".chat")) {
     new CompilerError(
       `${parameters[0]} is not a valid directory, please select a directory that exists!`,
@@ -24,7 +27,7 @@ const _import = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
     );
   }
 
-  const newStack: Promise<void | Array<Variable>> = run(
+  await run(
     fs
       .readFileSync(parameters[0])
       .toString()
