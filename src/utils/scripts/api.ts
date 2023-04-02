@@ -39,14 +39,4 @@ const api: any = {
   instance: apiInstance,
 };
 
-if (
-  process.env.API_KEY === undefined ||
-  process.env.API_URL === undefined ||
-  process.env.SOCKET_URL === undefined
-) {
-  console.error(
-    "Error: API key or API url not found in the .env file, please make sure the variable is set and present. \nError code: CC_ERROR_1591"
-  );
-}
-
 export default api;
