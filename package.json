@@ -5,7 +5,7 @@
   "main": "./build/js/index.js",
   "bin": "./build/js/index.js",
   "repository": "https://github.com/Chillandchat/cli.git",
-  "author": "Alvin Cheng <chengalvin333@gmail.com>",
+  "author": "Alvin Cheng <eventide1029@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
