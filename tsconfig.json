@@ -10,6 +10,8 @@
     "allowJs": true,
     "checkJs": true
   },
+  "include": ["./build/tmp/**/*"],
+  "exclude": ["./src/**/*"],
   "ts-node": {
     "esm": true
   }
