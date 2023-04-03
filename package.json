@@ -4,7 +4,7 @@
   "description": "The CLI for communicating with the Chill&chat server.",
   "main": "./build/js/index.js",
   "bin": "./build/js/index.js",
-  "repository": "https://github.com/Chillandchat/cli.git",
+  "repository": "https://github.com/chillandchat/cli.git",
   "author": "Alvin Cheng <eventide1029@gmail.com>",
   "license": "MIT",
   "private": false,
