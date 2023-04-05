@@ -31,12 +31,7 @@ const deleteFile = (
   }
 
   const pathType: any = fs.statSync(path);
-
-  if (pathType.isFile()) {
-    fs.unlinkSync(path);
-  } else {
-    fs.rmdirSync(path);
-  }
+  pathType.isFile() ? fs.unlinkSync(path) : fs.rmdirSync(path);
 };
 
 export default deleteFile;
