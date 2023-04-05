@@ -13,21 +13,7 @@ const disable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   for (let i: number = 0; i < parameters.length; i++) {
     switch (parameters[i]) {
       case "terminal-service":
-        runtimeInfo.stack.getVariable("$!PROTECTED_SHELL_ALLOWED").value ===
-        "false"
-          ? new CompilerError(
-              "Service already disabled.",
-              runtimeInfo.file,
-              runtimeInfo.line.toString(),
-              "error"
-            )
-          : runtimeInfo.stack
-              .getVariable("$!PROTECTED_SHELL_ALLOWED")
-              .modify("false");
-        break;
-
-      case "file-system-service":
-        runtimeInfo.stack.getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED")
+        runtimeInfo.stack.getVariable("$!PROTECTED_SHELL_ALLOWED", true)
           .value === "false"
           ? new CompilerError(
               "Service already disabled.",
@@ -36,13 +22,13 @@ const disable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
               "error"
             )
           : runtimeInfo.stack
-              .getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED")
-              .modify("false");
+              .getVariable("$!PROTECTED_SHELL_ALLOWED", true)
+              .modify("false", true);
         break;
 
-      case "network-service":
-        runtimeInfo.stack.getVariable("$!PROTECTED_NETWORK_ALLOWED").value ===
-        "false"
+      case "file-system-service":
+        runtimeInfo.stack.getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED", true)
+          .value === "false"
           ? new CompilerError(
               "Service already disabled.",
               runtimeInfo.file,
@@ -50,8 +36,22 @@ const disable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
               "error"
             )
           : runtimeInfo.stack
-              .getVariable("$!PROTECTED_NETWORK_ALLOWED")
-              .modify("false");
+              .getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED", true)
+              .modify("false", true);
+        break;
+
+      case "network-service":
+        runtimeInfo.stack.getVariable("$!PROTECTED_NETWORK_ALLOWED", true)
+          .value === "false"
+          ? new CompilerError(
+              "Service already disabled.",
+              runtimeInfo.file,
+              runtimeInfo.line.toString(),
+              "error"
+            )
+          : runtimeInfo.stack
+              .getVariable("$!PROTECTED_NETWORK_ALLOWED", true)
+              .modify("false", true);
         break;
 
       default:

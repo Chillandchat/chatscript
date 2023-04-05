@@ -15,8 +15,11 @@ import CompilerError from "../../utils/error";
  * @param {RuntimeInfo} runtimeInfo The runtime information.
  */
 
-const shell = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
-  if (!runtimeInfo.stack.variableExists("$!PROTECTED_SHELL_ALLOWED")) {
+const shell = async (
+  parameters: Array<string>,
+  runtimeInfo: RuntimeInfo
+): Promise<void> => {
+  if (!runtimeInfo.stack.variableExists("$!PROTECTED_SHELL_ALLOWED", true)) {
     new CompilerError(
       `Shell commands are not allowed.`,
       runtimeInfo.file,
@@ -26,7 +29,8 @@ const shell = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
   }
 
   if (
-    runtimeInfo.stack.getVariable("$!PROTECTED_SHELL_ALLOWED").value !== "true"
+    runtimeInfo.stack.getVariable("$!PROTECTED_SHELL_ALLOWED", true).value !==
+    "true"
   ) {
     new CompilerError(
       `Shell commands are not allowed.`,
@@ -51,7 +55,29 @@ const shell = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
     shellCommand = runtimeInfo.stack.getVariable(parameters[0]).value;
   }
 
-  exec(shellCommand);
+  exec(shellCommand, (error: any, stdout: any, stderr: any): void => {
+    if (error) {
+      new CompilerError(
+        `Unable to execute command on shell: ${error.message}`,
+        runtimeInfo.file,
+        runtimeInfo.line.toString(),
+        "error"
+      );
+    }
+
+    if (stderr) {
+      new CompilerError(
+        `Unable to execute command on shell: ${stderr}`,
+        runtimeInfo.file,
+        runtimeInfo.line.toString(),
+        "error"
+      );
+    }
+
+    if (stdout) {
+      console.log(stdout);
+    }
+  });
 };
 
 export default shell;

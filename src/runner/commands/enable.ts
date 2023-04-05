@@ -10,15 +10,15 @@ import CompilerError from "../../utils/error";
  */
 
 const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
-  runtimeInfo.stack.variableExists("$!PROTECTED_SHELL_ALLOWED")
+  runtimeInfo.stack.variableExists("$!PROTECTED_SHELL_ALLOWED", true)
     ? undefined
     : runtimeInfo.stack.newVariable("$!PROTECTED_SHELL_ALLOWED", "false");
 
-  runtimeInfo.stack.variableExists("$!PROTECTED_FILE_SYSTEM_ALLOWED")
+  runtimeInfo.stack.variableExists("$!PROTECTED_FILE_SYSTEM_ALLOWED", true)
     ? undefined
     : runtimeInfo.stack.newVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED", "false");
 
-  runtimeInfo.stack.variableExists("$!PROTECTED_NETWORK_ALLOWED")
+  runtimeInfo.stack.variableExists("$!PROTECTED_NETWORK_ALLOWED", true)
     ? undefined
     : runtimeInfo.stack.newVariable("$!PROTECTED_NETWORK_ALLOWED", "false");
 
@@ -34,8 +34,8 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
           );
         }
 
-        runtimeInfo.stack.getVariable("$!PROTECTED_SHELL_ALLOWED").value ===
-        "true"
+        runtimeInfo.stack.getVariable("$!PROTECTED_SHELL_ALLOWED", true)
+          .value === "true"
           ? new CompilerError(
               "Service already enabled.",
               runtimeInfo.file,
@@ -43,8 +43,8 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
               "error"
             )
           : runtimeInfo.stack
-              .getVariable("$!PROTECTED_SHELL_ALLOWED")
-              .modify("true");
+              .getVariable("$!PROTECTED_SHELL_ALLOWED", true)
+              .modify("true", true);
         break;
 
       case "file-system-service":
@@ -57,7 +57,7 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
           );
         }
 
-        runtimeInfo.stack.getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED")
+        runtimeInfo.stack.getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED", true)
           .value === "true"
           ? new CompilerError(
               "Service already enabled.",
@@ -66,8 +66,8 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
               "error"
             )
           : runtimeInfo.stack
-              .getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED")
-              .modify("true");
+              .getVariable("$!PROTECTED_FILE_SYSTEM_ALLOWED", true)
+              .modify("true", true);
         break;
 
       case "network-service":
@@ -80,8 +80,8 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
           );
         }
 
-        runtimeInfo.stack.getVariable("$!PROTECTED_NETWORK_ALLOWED").value ===
-        "true"
+        runtimeInfo.stack.getVariable("$!PROTECTED_NETWORK_ALLOWED", true)
+          .value === "true"
           ? new CompilerError(
               "Service already enabled.",
               runtimeInfo.file,
@@ -89,8 +89,8 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
               "error"
             )
           : runtimeInfo.stack
-              .getVariable("$!PROTECTED_NETWORK_ALLOWED")
-              .modify("true");
+              .getVariable("$!PROTECTED_NETWORK_ALLOWED", true)
+              .modify("true", true);
         break;
 
       default:
