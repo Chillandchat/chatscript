@@ -30,6 +30,15 @@ const deleteFile = (
     }
   }
 
+  if (!fs.existsSync(path)) {
+    new CompilerError(
+      `${path} does not exist. Please choose a valid path.`,
+      runtimeInfo.file,
+      runtimeInfo.line.toString(),
+      "error"
+    );
+  }
+
   const pathType: any = fs.statSync(path);
   pathType.isFile() ? fs.unlinkSync(path) : fs.rmdirSync(path);
 };
