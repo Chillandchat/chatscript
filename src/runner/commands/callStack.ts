@@ -52,11 +52,20 @@ class CallStack {
    * This is the variable exists method, this method will check if the variable exists in the call stack.
    *
    * @param {string} name The name of the variable.
+   * @optional @param {boolean} allowProtectionBypass If the command is allowed to bypass the variable protection.
    * @returns {boolean} Whether the variable exists
    */
 
-  public variableExists(name: string): boolean {
-    return this.getVariable(name) !== undefined;
+  public variableExists(
+    name: string,
+    allowProtectionBypass?: boolean
+  ): boolean {
+    return (
+      this.getVariable(
+        name,
+        allowProtectionBypass === undefined ? false : allowProtectionBypass
+      ) !== undefined
+    );
   }
 
   /**
