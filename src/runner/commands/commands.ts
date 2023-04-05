@@ -48,6 +48,9 @@ import _sendMessage from "./bot-api/sendMessage";
 import _unfollowUser from "./bot-api/unfollowUser";
 import onMessage from "./bot-api/onMessage";
 import deleteFile from "./delete";
+import enable from "./enable";
+import disable from "./disable";
+import shell from "./shell";
 
 namespace Commands {
   export const commands: Array<Command> = [
@@ -113,6 +116,13 @@ namespace Commands {
     { name: "send", method: _sendMessage },
     { name: "unfollow", method: _unfollowUser },
     { name: "on_message", method: onMessage },
+
+    // Security and privacy:
+    { name: "enable", method: enable },
+    { name: "disable", method: disable },
+
+    // Misc:
+    { name: "shell", method: shell },
   ];
 }
 
