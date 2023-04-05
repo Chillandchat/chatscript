@@ -1,7 +1,7 @@
 import { Command } from "../../utils/index.d";
 import call from "./call";
 import compare from "./compare";
-import deleteVariable from "./delete";
+import removeVariable from "./remove";
 import exit from "./exit";
 import _function from "./function";
 import _if from "./if";
@@ -47,17 +47,19 @@ import _reportRoom from "./bot-api/reportRoom";
 import _sendMessage from "./bot-api/sendMessage";
 import _unfollowUser from "./bot-api/unfollowUser";
 import onMessage from "./bot-api/onMessage";
+import deleteFile from "./delete";
 
 namespace Commands {
   export const commands: Array<Command> = [
+    // IO commands:
     { name: "print", method: print },
     { name: "prompt", method: prompt },
     { name: "clear", method: clear },
 
+    // Variable and function operators:
     { name: "set", method: set },
-    { name: "delete", method: deleteVariable },
+    { name: "remove", method: removeVariable },
     { name: "call", method: call },
-
     { name: "compare", method: compare },
     { name: "function", method: _function },
     { name: "if", method: _if },
@@ -67,14 +69,15 @@ namespace Commands {
     { name: "length", method: length },
     { name: "concat", method: concat },
     { name: "get", method: get },
-
     { name: "array", method: array },
     { name: "object", method: object },
 
+    // External code loading handlers:
     { name: "import", method: _import },
     { name: "export", method: _export },
     { name: "load_string", method: loadString },
 
+    // Maths utilities:
     { name: "sin", method: sin },
     { name: "calculate", method: calculate },
     { name: "cos", method: cos },
@@ -84,14 +87,18 @@ namespace Commands {
     { name: "round", method: round },
     { name: "pi", method: pi },
 
+    // File system handler:
     { name: "read", method: read },
     { name: "write", method: write },
     { name: "append", method: append },
     { name: "create", method: create },
+    { name: "delete", method: deleteFile },
 
+    // Network handler:
     { name: "fetch", method: fetch },
     { name: "post", method: post },
 
+    // Bot functions:
     { name: "room_exists", method: roomExists },
     { name: "login", method: _login },
     { name: "signout", method: signout },

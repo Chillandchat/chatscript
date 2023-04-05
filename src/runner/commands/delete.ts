@@ -1,29 +1,37 @@
+import fs from "fs";
+
+import { RuntimeInfo } from "../../utils";
 import CompilerError from "../../utils/error";
-import { RuntimeInfo } from "./../../utils/index.d";
 
 /**
- * This is the delete variable function, this function will delete the selected variable from the call stack.
+ * This is the delete command, this command will delete a file or folder from the file system.
+ * This command will only require a parameter for the path to delete.
  *
  * @param {Array<string>} parameters The data from the chat-script command.
  * @param {RuntimeInfo} runtimeInfo The runtime information.
  */
 
-const deleteVariable = (
+const deleteFile = (
   parameters: Array<string>,
   runtimeInfo: RuntimeInfo
 ): void => {
-  for (let i = 0; i < parameters.length; i++) {
-    if (runtimeInfo.stack.variableExists(parameters[i]))
-      runtimeInfo.stack.removeVariable(parameters[i]);
-    else {
+  let path: string = parameters[0];
+
+  if (parameters[0][0] === "$") {
+    path = runtimeInfo.stack.getVariable(parameters[0]).value;
+
+    if (!runtimeInfo.stack.variableExists(parameters[0])) {
       new CompilerError(
-        `${parameters[i]} is undefined, did you forget to define it??`,
+        `${parameters[0]} is undefined, did you forget to define it??`,
         runtimeInfo.file,
         runtimeInfo.line.toString(),
         "error"
       );
     }
   }
+
+  const pathType: any = fs.statSync(path);
+  pathType.isFile() ? fs.unlinkSync(path) : fs.rmdirSync(path);
 };
 
-export default deleteVariable;
+export default deleteFile;

@@ -11,7 +11,7 @@
   "scripts": {
     "build": "echo 'Building...' && cp -a ./src/ ./build/tmp && node build.js && tsc && echo 'Done!'",
     "create-bin": "echo 'Building binary files...' && pkg . && echo 'Done!'",
-    "test": "echo 'Compiling test code...' && ts-node ./src/index.ts compile ./__tests__/main.chat && echo 'Running test code...' && ts-node ./src/index.ts run ./__tests__/main.out.chat && echo 'Done!'",
+    "test": "echo 'Compiling test code...' && ts-node ./src/index.ts --compile ./__tests__/main.chat && echo 'Running test code...' && ts-node ./src/index.ts --run ./__tests__/main.out.chat && echo 'Done!'",
     "clean": "echo 'Cleaning...' && rm -r ./__tests__/main.out.chat"
   },
   "dependencies": {
