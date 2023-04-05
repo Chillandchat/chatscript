@@ -22,10 +22,21 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
     ? undefined
     : runtimeInfo.stack.newVariable("$!PROTECTED_NETWORK_ALLOWED", "false");
 
+  let flags: Array<string> = process.argv;
+
+  if (flags.includes("--allow-all-services")) {
+    flags.push(
+      "--allow-terminal-service",
+      "--allow-network-service",
+      "--allow-file-system-service",
+      runtimeInfo.file
+    );
+  }
+
   for (let i: number = 0; i < parameters.length; i++) {
     switch (parameters[i]) {
       case "terminal-service":
-        if (!process.argv.includes("--allow-terminal-service")) {
+        if (!flags.includes("--allow-terminal-service")) {
           new CompilerError(
             "Terminal service is not allowed, please use the --allow-terminal-service flag to enable this service.",
             runtimeInfo.file,
@@ -48,7 +59,7 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
         break;
 
       case "file-system-service":
-        if (!process.argv.includes("--allow-file-system-service")) {
+        if (!flags.includes("--allow-file-system-service")) {
           new CompilerError(
             "File system service is not allowed, please use the --allow-file-system-service flag to enable this service.",
             runtimeInfo.file,
@@ -71,7 +82,7 @@ const enable = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
         break;
 
       case "network-service":
-        if (!process.argv.includes("--allow-network-service")) {
+        if (!flags.includes("--allow-network-service")) {
           new CompilerError(
             "Network service is not allowed, please use the --allow-network-service flag to enable this service.",
             runtimeInfo.file,
