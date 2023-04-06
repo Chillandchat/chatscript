@@ -69,6 +69,8 @@ const parse = (data: string): Array<TreeNode> => {
   }
   for (let i = 0; i < lines.length; i++) {
     lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "");
+
+    // @ts-ignore
     lines[i] = lines[i].replaceAll("<endline>", "\n");
   }
 
@@ -87,27 +89,34 @@ const parse = (data: string): Array<TreeNode> => {
     let closedNestedBracket: number = 0;
 
     // Pre-processors
+    // @ts-ignore
     if (value.replaceAll(" ", "")[0] === "#") {
       lines.splice(index, 1);
       return;
     }
 
+    // @ts-ignore
     if (value.replaceAll(" ", "")[0] === "$") {
-      let replacement = "set";
-      let currentProcessArgument = "";
+      // @ts-ignore
+      if (value.replaceAll(" ", "").slice(0, 5) === "$FUNC")
+        value = `call ${value}`;
+      else {
+        let replacement = "set";
+        let currentProcessArgument = "";
 
-      for (let i = 0; i < value.length; i++) {
-        if (value[i] !== " " && value[i] !== "=")
-          currentProcessArgument = currentProcessArgument.concat(value[i]);
-        if (
-          (currentProcessArgument !== "" && value[i] === " ") ||
-          i === value.length - 1
-        ) {
-          replacement = replacement.concat(` ${currentProcessArgument}`);
-          currentProcessArgument = "";
+        for (let i = 0; i < value.length; i++) {
+          if (value[i] !== " " && value[i] !== "=")
+            currentProcessArgument = currentProcessArgument.concat(value[i]);
+          if (
+            (currentProcessArgument !== "" && value[i] === " ") ||
+            i === value.length - 1
+          ) {
+            replacement = replacement.concat(` ${currentProcessArgument}`);
+            currentProcessArgument = "";
+          }
         }
+        value = replacement;
       }
-      value = replacement;
     }
 
     for (let i = 0; i < value.length; i++) {
@@ -120,12 +129,14 @@ const parse = (data: string): Array<TreeNode> => {
         }
         if (value[i] === " " && !openedQuote && !openedBracket) {
           currentNode.arguments.push(
+            // @ts-ignore
             openedQuote ? currentArgument.replaceAll(`"`, "") : currentArgument
           );
           currentArgument = "";
         }
         if (i === value.length - 1 && !openedQuote && !openedBracket) {
           currentNode.arguments.push(
+            // @ts-ignore
             openedQuote ? currentArgument.replaceAll(`"`, "") : currentArgument
           );
           currentArgument = "";
@@ -151,6 +162,7 @@ const parse = (data: string): Array<TreeNode> => {
           }
 
           if ((openedQuote || i === value.length - 1) && !openedBracket) {
+            // @ts-ignore
             currentArgument = currentArgument.replaceAll(`"`, "");
             currentNode.arguments.push(currentArgument);
             currentArgument = "";
