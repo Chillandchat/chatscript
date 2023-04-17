@@ -23,10 +23,11 @@ const help = (): void => {
   }
 
   console.log(
-    "For more information on the language and it's technical details, please see: https://github.com/Chillandchat/cli/wiki \n"
+    "For more information on the language and it's technical details, please see: https://github.com/Chillandchat/chatscript/wiki \n"
   );
-  console.log("usage: chatscript [<allowed services>] <command> [file]");
-  console.log("\n\n");
+  console.log(
+    "usage: chatscript [<allowed services>] <command> [file]\n\nCOMMANDS:\n- compile: Compiles the input file\n- run: Runs the input file\n- help: Prints out this help message\n\nFor more information about the command line arguments and commands, please visit: https://github.com/Chillandchat/chatscript/wiki/Setup\n\n"
+  );
 };
 
 export default help;
