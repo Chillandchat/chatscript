@@ -6,7 +6,7 @@
  */
 
 const help = (): void => {
-  const text: string = "Welcome to Chill&chat chatscript v1.1.0!";
+  const text: string = "Welcome to Chill&chat chatscript v1.2.0!";
 
   console.clear();
   console.log("\n\n");
