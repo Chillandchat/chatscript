@@ -32,16 +32,16 @@ import help from "./utils/help";
 import readFile from "./utils/readFile";
 
 if (
-  process.argv[process.argv.length - 1] === "--compile" ||
-  process.argv[process.argv.length - 1] === "--run"
+  process.argv[process.argv.length - 1] === "compile" ||
+  process.argv[process.argv.length - 1] === "run"
 ) {
   new CompilerError("No input file provided!", "Unknown", "Unknown", "error");
 }
 
 if (
-  !process.argv.includes("--help") &&
-  !process.argv.includes("--compile") &&
-  !process.argv.includes("--run")
+  !process.argv.includes("help") &&
+  !process.argv.includes("compile") &&
+  !process.argv.includes("run")
 ) {
   new CompilerError(
     "Invalid operation, please enter a valid operation!",
@@ -50,15 +50,15 @@ if (
     "error"
   );
 }
-if (process.argv[process.argv.length - 1] === "--help") {
+if (process.argv[process.argv.length - 1] === "help") {
   help();
 }
 
-if (process.argv[process.argv.length - 2] === "--compile") {
+if (process.argv[process.argv.length - 2] === "compile") {
   compile();
 }
 
-if (process.argv[process.argv.length - 2] === "--run") {
+if (process.argv[process.argv.length - 2] === "run") {
   const ast: string = String(
     readFile(process.argv[process.argv.length - 1])
   ).replace(

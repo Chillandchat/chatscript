@@ -6,7 +6,7 @@
  */
 
 const help = (): void => {
-  const text: string = "Welcome to the Chill&chat CLI v1.1.0!";
+  const text: string = "Welcome to Chill&chat chatscript v1.1.0!";
 
   console.clear();
   console.log("\n\n");
@@ -25,9 +25,7 @@ const help = (): void => {
   console.log(
     "For more information on the language and it's technical details, please see: https://github.com/Chillandchat/cli/wiki \n"
   );
-  console.log(
-    "usage: <exec_name> [--compile Sets compile mode] [--help Get help information] [--run Sets run mode] [input]"
-  );
+  console.log("usage: chatscript [<allowed services>] <command> [file]");
   console.log("\n\n");
 };
 
