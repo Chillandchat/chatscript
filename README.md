@@ -8,7 +8,7 @@ This is the the official programming language for communicating with the Chill&c
 
 ### Docs
 
-The CLI documentation can be found in the wiki or by clicking [here](https://github.com/Chillandchat/cli/wiki)
+The scripting language's documentation can be found in the wiki or by clicking [here](https://github.com/Chillandchat/cli/wiki)
 
 ### License
 
