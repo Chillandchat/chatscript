@@ -8,7 +8,7 @@ const variables = dotenv.parse(
 );
 
 let envFileWriteData = "";
-let keys = [];
+let keys = []
 for (const [key, data] of Object.entries(variables)) {
   envFileWriteData = envFileWriteData.concat(
     `export const ${key} = "${data}"; \n`
