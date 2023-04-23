@@ -9,11 +9,11 @@ on:
       - main
 
 jobs:
-  permissions:
-    contents: write
-
   format:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
