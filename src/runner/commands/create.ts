@@ -30,7 +30,7 @@ const create = (parameters: Array<string>, runtimeInfo: RuntimeInfo): void => {
 
   if (
     parameters[1][0] === "$" &&
-    !runtimeInfo.stack.variableExists(parameters[0])
+    !runtimeInfo.stack.variableExists(parameters[1])
   ) {
     new CompilerError(
       `${parameters[1]} is undefined. Did you forget to define ${parameters[1]}??`,
